@@ -1,0 +1,150 @@
+item {
+    id: 1
+    name: 'zwanzig'
+}
+
+item {
+    id: 2
+    name: 'dreissig'
+}
+
+item {
+    id: 3
+    name: 'fuenfzig'
+}
+
+item {
+    id: 4
+    name: 'sechzig'
+}
+item {
+    id: 5
+    name: 'siebzig'
+}
+
+item {
+    id: 6
+    name: 'achtzig'
+}
+item {
+    id: 7
+    name: 'neunzig'
+}
+item {
+    id: 8
+    name: 'hundert'
+}
+item {
+    id: 9
+    name: 'hundertzehn'
+}
+item {
+    id: 10
+    name: 'hundertzwanzig'
+}
+item {
+    id: 11
+    name: 'hundertdreissig'
+}
+item {
+    id: 12
+    name: 'zwanzigEnde'
+}
+item {
+    id: 13
+    name: 'dreissigEnde'
+}
+item {
+    id: 14
+    name: 'fünfzigEnde'
+}
+item {
+    id: 15
+    name: 'sechzigEnde'
+}
+item {
+    id: 16
+    name: 'siebzigEnde'
+}
+item {
+    id: 17
+    name: 'achtzigEnde'
+}
+item {
+    id: 18
+    name: 'neunzigEnde'
+}
+item {
+    id: 19
+    name: 'hundertEnde'
+}
+item {
+    id: 20
+    name: 'hundertzehnEnde'
+}
+item {
+    id: 21
+    name: 'hundertzwanzigEnde'
+}
+item {
+    id: 22
+    name: 'hundertdreissigEnde'
+}
+item {
+    id: 23
+    name: 'ende'
+}
+item {
+    id: 24
+    name: 'spielstrasse'
+}
+item {
+    id: 25
+    name: 'spielstrasseEnde'
+}
+item {
+    id: 26
+    name: 'ort'
+}
+item {
+    id: 27
+    name: 'ortAusgang'
+}
+item {
+    id: 28
+    name: 'ortEnde'
+}
+item {
+    id: 29
+    name: 'autobahn'
+}
+item {
+    id: 30
+    name: 'autobahnEnde'
+}
+item {
+    id: 31
+    name: 'zoneZwanzig'
+}
+item {
+    id: 32
+    name: 'zoneDreissig'
+}
+item {
+    id: 33
+    name: 'zoneZwanzigEnde'
+}
+item {
+    id: 34
+    name: 'zoneDreissigEnde'
+}
+
+
+
+
+
+
+
+
+
+
