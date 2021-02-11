@@ -1,3 +1,8 @@
+"""
+Sections of this code were taken from:
+https://github.com/tensorflow/models/blob/master/research/object_detection/object_detection_tutorial.ipynb
+"""
+
 import os
 
 import matplotlib
@@ -11,15 +16,6 @@ tf.get_logger().setLevel('ERROR')           # Suppress TensorFlow logging (2)
 gpus = tf.config.experimental.list_physical_devices('GPU')
 for gpu in gpus:
     tf.config.experimental.set_memory_growth(gpu, True)
-
-
-IMAGE_PATHS =[]
-path = "E:/gdki-ws-20-21-projekt/ki/sign-identification/images/eval"
-
-files = os.listdir(path)
-
-for idx, file in enumerate(files):
-    IMAGE_PATHS.append(path + "/" + file)
 
 
 PATH_TO_MODEL_DIR = 'E:/gdki-ws-20-21-projekt/ki/sign-identification/exported-models/version_2'
@@ -57,9 +53,6 @@ def detect_fn(image):
 
     return detections
 
-end_time = time.time()
-elapsed_time = end_time - start_time
-print('Done! Took {} seconds'.format(elapsed_time))
 
 
 category_index = label_map_util.create_category_index_from_labelmap(PATH_TO_LABELS,
@@ -68,28 +61,31 @@ category_index = label_map_util.create_category_index_from_labelmap(PATH_TO_LABE
 
 import numpy as np
 from PIL import Image
-import matplotlib.pyplot as plt
 import warnings
+import datetime
 warnings.filterwarnings('ignore')   # Suppress Matplotlib warnings
 
 def load_image_into_numpy_array(path):
     return np.array(Image.open(path))
 
 i = 0
-for image_path in IMAGE_PATHS:
 
-    print('Running inference for {}... '.format(image_path), end='')
+out = cv2.VideoWriter("output" + str(datetime.datetime.now())+ ".avi",
+cv2.VideoWriter_fourcc(*"MJPG"), 10,(1920,1080))
 
-    image_np = load_image_into_numpy_array(image_path)
-    if image_np.shape[2] == 4:
-        image_np = image_np[:,:,:3]
-    # image_np = np.reshape(image_np, [image_np.shape[0], image_np.shape[1], 3])
-    # Things to try:
-    # Flip horizontally
-    # image_np = np.fliplr(image_np).copy()
+cap = cv2.VideoCapture('4.mp4')
 
-    #image_np = np.tile(
-          #  np.mean(image_np, 2, keepdims=True), (1, 1, 3)).astype(np.uint8)
+while(cap.isOpened()):
+
+    ret, frame = cap.read()
+
+    # Recolor the frame. By default, OpenCV uses BGR color space.
+    # This short blog post explains this better:
+    # https://www.learnopencv.com/why-does-opencv-use-bgr-color-format/
+    try:
+        image_np = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    except :
+        break
 
     input_tensor = tf.convert_to_tensor(np.expand_dims(image_np, 0), dtype=tf.float32)
 
@@ -110,8 +106,6 @@ for image_path in IMAGE_PATHS:
     image_np_with_detections = image_np.copy()
 
     matplotlib.rcParams.update({'font.size': 22})
-    print(detections['detection_classes'])
-    print(detections['detection_scores'])
     viz_utils.visualize_boxes_and_labels_on_image_array(
             image_np_with_detections,
             detections['detection_boxes'],
@@ -119,14 +113,22 @@ for image_path in IMAGE_PATHS:
             detections['detection_scores'],
             category_index,
             use_normalized_coordinates=True,
-            max_boxes_to_draw=200,
-            min_score_thresh=.30,
+            line_thickness=8,
+            min_score_thresh=.80,
             agnostic_mode=False,
     )
-    plt.figure()
-    plt.imshow(image_np_with_detections)
-    plt.savefig("new_img"+str(i)+".jpg", transparent=True)
-    i = i + 1
-    print('Done')
+    output_rgb = cv2.cvtColor(image_np_with_detections, cv2.COLOR_RGB2BGR)
+    cv2.imshow('frame', output_rgb)
+    out.write(output_rgb)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
 
-plt.show()
+
+out and out.release()
+cap.release()
+cv2.destroyAllWindows()
+
+
+end_time = time.time()
+elapsed_time = end_time - start_time
+print('Done! Took {} seconds'.format(elapsed_time))
