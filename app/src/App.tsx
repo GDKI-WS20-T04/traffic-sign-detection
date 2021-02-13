@@ -1,9 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import React, { Component, useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View } from "react-native";
 import * as tf from "@tensorflow/tfjs";
 import "@tensorflow/tfjs-react-native";
 import { registerRootComponent } from "expo";
+import { Provider as PaperProvider } from "react-native-paper";
+import { Home } from "./components/Home";
 
 export default function App() {
   const [isTfReady, setIsTfReady] = useState(false);
@@ -20,11 +22,12 @@ export default function App() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-      {isTfReady && <Text>Tf Ready</Text>}
-    </View>
+    <PaperProvider>
+      <View style={styles.container}>
+        <Home></Home>
+        <StatusBar style="auto" />
+      </View>
+    </PaperProvider>
   );
 }
 
