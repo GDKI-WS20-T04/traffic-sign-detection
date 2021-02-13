@@ -4,3 +4,5 @@
 /ki/sign-identification/models/
 /ki/sign-identification/pre-trained-models/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8/
 
+/ki/sign-identification/pre-trained-models/
+/ki/sign-identification/testing/
