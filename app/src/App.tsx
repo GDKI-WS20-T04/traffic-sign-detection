@@ -3,6 +3,7 @@ import React, { Component, useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import * as tf from "@tensorflow/tfjs";
 import "@tensorflow/tfjs-react-native";
+import { registerRootComponent } from "expo";
 
 export default function App() {
   const [isTfReady, setIsTfReady] = useState(false);
@@ -35,3 +36,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+registerRootComponent(App);
