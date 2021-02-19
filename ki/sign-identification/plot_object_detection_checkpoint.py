@@ -22,7 +22,7 @@ for idx, file in enumerate(files):
     IMAGE_PATHS.append(path + "/" + file)
 
 
-PATH_TO_MODEL_DIR = 'E:/gdki-ws-20-21-projekt/ki/sign-identification/exported-models/version_2'
+PATH_TO_MODEL_DIR = 'E:/gdki-ws-20-21-projekt/ki/sign-identification/exported-models/version_6'
 
 PATH_TO_LABELS = 'E:/gdki-ws-20-21-projekt/ki/sign-identification/annotations/label_map.pbtxt'
 
@@ -94,7 +94,6 @@ for image_path in IMAGE_PATHS:
     input_tensor = tf.convert_to_tensor(np.expand_dims(image_np, 0), dtype=tf.float32)
 
     detections = detect_fn(input_tensor)
-
     # All outputs are batches tensors.
     # Convert to numpy arrays, and take index [0] to remove the batch dimension.
     # We're only interested in the first num_detections.
@@ -112,6 +111,7 @@ for image_path in IMAGE_PATHS:
     matplotlib.rcParams.update({'font.size': 22})
     print(detections['detection_classes'])
     print(detections['detection_scores'])
+    print(detections['detection_boxes'][0])
     viz_utils.visualize_boxes_and_labels_on_image_array(
             image_np_with_detections,
             detections['detection_boxes'],

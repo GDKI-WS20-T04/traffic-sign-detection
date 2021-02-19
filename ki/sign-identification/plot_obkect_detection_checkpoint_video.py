@@ -18,7 +18,7 @@ for gpu in gpus:
     tf.config.experimental.set_memory_growth(gpu, True)
 
 
-PATH_TO_MODEL_DIR = 'E:/gdki-ws-20-21-projekt/ki/sign-identification/exported-models/version_3'
+PATH_TO_MODEL_DIR = 'E:/gdki-ws-20-21-projekt/ki/sign-identification/exported-models/version_6'
 
 PATH_TO_LABELS = 'E:/gdki-ws-20-21-projekt/ki/sign-identification/annotations/label_map.pbtxt'
 
@@ -29,7 +29,7 @@ from object_detection.utils import visualization_utils as viz_utils
 from object_detection.builders import model_builder
 
 PATH_TO_CFG = PATH_TO_MODEL_DIR + "/pipeline.config"
-PATH_TO_CKPT = PATH_TO_MODEL_DIR + "/checkpoint"
+PATH_TO_CKPT = PATH_TO_MODEL_DIR + "/saved_model"
 
 print('Starting... ', end='')
 start_time = time.time()
@@ -37,21 +37,8 @@ start_time = time.time()
 # Load pipeline config and build a detection model
 configs = config_util.get_configs_from_pipeline_file(PATH_TO_CFG)
 model_config = configs['model']
-detection_model = model_builder.build(model_config=model_config, is_training=False)
+detect_fn = tf.saved_model.load(PATH_TO_CKPT)
 
-# Restore checkpoint
-ckpt = tf.compat.v2.train.Checkpoint(model=detection_model)
-ckpt.restore(os.path.join(PATH_TO_CKPT, 'ckpt-0')).expect_partial()
-
-@tf.function
-def detect_fn(image):
-    """Detect objects in image."""
-
-    image, shapes = detection_model.preprocess(image)
-    prediction_dict = detection_model.predict(image, shapes)
-    detections = detection_model.postprocess(prediction_dict, shapes)
-
-    return detections
 
 
 
@@ -87,13 +74,16 @@ while(cap.isOpened()):
     except :
         break
 
-    input_tensor = tf.convert_to_tensor(np.expand_dims(image_np, 0), dtype=tf.float32)
+    input_tensor = tf.convert_to_tensor(image_np)
+
+    input_tensor = input_tensor[tf.newaxis, ...]
 
     detections = detect_fn(input_tensor)
 
     # All outputs are batches tensors.
     # Convert to numpy arrays, and take index [0] to remove the batch dimension.
     # We're only interested in the first num_detections.
+
     num_detections = int(detections.pop('num_detections'))
     detections = {key: value[0, :num_detections].numpy()
                   for key, value in detections.items()}
@@ -102,7 +92,7 @@ while(cap.isOpened()):
     # detection_classes should be ints.
     detections['detection_classes'] = detections['detection_classes'].astype(np.int64)
 
-    label_id_offset = 1
+    label_id_offset = 0
     image_np_with_detections = image_np.copy()
 
     matplotlib.rcParams.update({'font.size': 22})
@@ -114,7 +104,7 @@ while(cap.isOpened()):
             category_index,
             use_normalized_coordinates=True,
             line_thickness=8,
-            min_score_thresh=.80,
+            min_score_thresh=.05,
             agnostic_mode=False,
     )
     output_rgb = cv2.cvtColor(image_np_with_detections, cv2.COLOR_RGB2BGR)
