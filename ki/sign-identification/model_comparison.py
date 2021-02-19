@@ -23,7 +23,7 @@ for idx, file in enumerate(files):
 
 print(IMAGE_PATHS)
 
-PATH_TO_MODEL_DIR = 'E:/gdki-ws-20-21-projekt/ki/sign-identification/exported-models/version_1'
+PATH_TO_MODEL_DIR = 'E:/gdki-ws-20-21-projekt/ki/sign-identification/exported-models/version_3'
 
 PATH_TO_LABELS = 'E:/gdki-ws-20-21-projekt/ki/sign-identification/annotations/label_map.pbtxt'
 
@@ -57,9 +57,7 @@ def detect_fn(image):
 
     return detections
 
-end_time = time.time()
-elapsed_time = end_time - start_time
-print('Done! Took {} seconds'.format(elapsed_time))
+
 
 
 category_index = label_map_util.create_category_index_from_labelmap(PATH_TO_LABELS,
@@ -86,7 +84,10 @@ for idx, image_path in enumerate(IMAGE_PATHS):
     if image_np.shape[2] == 4:
         image_np = image_np[:,:,:3]
 
+
     input_tensor = tf.convert_to_tensor(np.expand_dims(image_np, 0), dtype=tf.float32)
+
+
 
     detections = detect_fn(input_tensor)
 
@@ -111,9 +112,12 @@ for idx, image_path in enumerate(IMAGE_PATHS):
 
 print("Von "+ str(len(true_values)) + " Bildern wurden " +str(score1)+" korrekt erkannt")
 print("Gesamtscore: " + str(score2))
-print(wrong_pictures)
-print(wrong_detection)
+
+end_time = time.time()
+elapsed_time = end_time - start_time
+print('Done! Took {} seconds'.format(elapsed_time))
 
 # 12 / 25  7.19
 # 18/ 25 15.74
 # 19/25  16.4
+# 1/25  0.005
