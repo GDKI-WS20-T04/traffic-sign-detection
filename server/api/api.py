@@ -1,3 +1,4 @@
+import io
 import time
 
 import cv2
@@ -5,8 +6,16 @@ import flask
 import logging
 
 import numpy as np
+from PIL import Image
 from flask import (Blueprint, request)
 import tensorflow as tf
+import base64
+
+tf.get_logger().setLevel('ERROR')
+
+gpus = tf.config.experimental.list_physical_devices('GPU')
+for gpu in gpus:
+    tf.config.experimental.set_memory_growth(gpu, True)
 
 
 logger = logging.getLogger()
@@ -23,15 +32,22 @@ app = flask.Flask(__name__, static_url_path="/")
 def test_image():
     start_time = time.time()
     try:
-        if "image" not in request.files:
-            err = flask.jsonify({"err_msg": "Missing Image"})
-            return err, 400
+        if "base64_image" in request.values:
+            base64_decoded = base64.b64decode(request.values['base64_image'])
+            image = Image.open(io.BytesIO(base64_decoded))
+            npimg = np.array(image)
+        else:
+            if "image" not in request.files:
+                err = flask.jsonify({"err_msg": "Missing Image"})
+                return err, 400
 
-        image = request.files['image']
-        npimg = np.fromfile(image, np.uint8)
-        file = cv2.imdecode(npimg, cv2.COLOR_BGR2RGB)
+            image = request.files['image']
+            npimg = np.array(Image.open(image))
 
-        input_tensor = tf.convert_to_tensor(file)
+        if npimg.shape[2] == 4:
+            npimg = npimg[:, :, :3]
+
+        input_tensor = tf.convert_to_tensor(npimg)
 
         input_tensor = input_tensor[tf.newaxis, ...]
 
@@ -39,7 +55,6 @@ def test_image():
         num_detections = int(detections.pop('num_detections'))
         detections = {key: value[0, :num_detections].numpy()
                       for key, value in detections.items()}
-
         result = {
             "detection_classes": list(map(int, detections["detection_classes"])),
             "detection_scores": list(map(float, detections["detection_scores"]))
@@ -57,4 +72,4 @@ def end(start_time):
     elapsed_time = time.time() - start_time
     print('Done! Took {} seconds'.format(elapsed_time))
 
-app.run(host = "0.0.0.0")
+app.run(host = "0.0.0.0", threaded=True, port=5025)
