@@ -38,23 +38,12 @@ PATH_TO_CKPT = PATH_TO_MODEL_DIR + "/saved_model"
 print('Loading model... ', end='')
 start_time = time.time()
 
-# Load pipeline config and build a detection model
-configs = config_util.get_configs_from_pipeline_file(PATH_TO_CFG)
-model_config = configs['model']
 detect_fn = tf.saved_model.load(PATH_TO_CKPT)
 
 
 
-category_index = label_map_util.create_category_index_from_labelmap(PATH_TO_LABELS,
-                                                                    use_display_name=True)
-
-
 import numpy as np
 from PIL import Image
-import warnings
-import matplotlib.pyplot as plt
-from object_detection.utils import visualization_utils as viz_utils
-warnings.filterwarnings('ignore')   # Suppress Matplotlib warnings
 
 def load_image_into_numpy_array(path):
     return np.array(Image.open(path))
