@@ -1,0 +1,18 @@
+site_name: GDKI - Projekt
+
+theme:
+  features:
+      - navigation.tabs
+      - navigation.tabs.sticky
+  name: material
+  logo: images/myCargonautLogo.png
+
+nav:
+  - Home: 
+    - 'index.md'
+
+markdown_extensions:
+  - pymdownx.tabbed
+  - pymdownx.superfences
+
+dev_addr: "127.0.0.1:8001"
