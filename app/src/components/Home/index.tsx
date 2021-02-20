@@ -5,7 +5,11 @@ import { Button, Text } from "react-native-paper";
 import * as Permissions from "expo-permissions";
 import * as ScreenOrientation from "expo-screen-orientation";
 
-export const Home = ({ navigation }) => {
+export interface HomeProps {
+  navigation: NavigationType;
+}
+
+export const Home: React.FC<HomeProps> = ({ navigation }) => {
   useEffect(() => {
     const init = async () => {
       await ScreenOrientation.unlockAsync();
@@ -37,6 +41,13 @@ export const Home = ({ navigation }) => {
           onPress={() => navigation.navigate("Start")}
         >
           Start
+        </Button>
+        <Button
+          style={style.button}
+          mode="outlined"
+          onPress={() => navigation.navigate("Camera")}
+        >
+          Camera
         </Button>
         <Button
           style={style.button}
