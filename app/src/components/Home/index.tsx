@@ -3,6 +3,7 @@ import React from "react";
 import { View } from "react-native";
 import { Button, Text } from "react-native-paper";
 import * as Permissions from "expo-permissions";
+import { Camera } from "../Camera";
 
 export const Home = () => {
   const [permission, askForPermission] = usePermissions(
@@ -23,13 +24,7 @@ export const Home = () => {
 
   return (
     <View>
-      <Button
-        icon="camera"
-        mode="contained"
-        onPress={() => console.log("Pressed")}
-      >
-        Press me
-      </Button>
+      <Camera />
     </View>
   );
 };
