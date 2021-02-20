@@ -1,11 +1,18 @@
 import { usePermissions } from "expo-permissions";
-import React from "react";
-import { View } from "react-native";
+import React, { useEffect } from "react";
+import { View, StyleSheet } from "react-native";
 import { Button, Text } from "react-native-paper";
 import * as Permissions from "expo-permissions";
-import { Camera } from "../Camera";
+import * as ScreenOrientation from "expo-screen-orientation";
 
-export const Home = () => {
+export const Home = ({ navigation }) => {
+  useEffect(() => {
+    const init = async () => {
+      await ScreenOrientation.unlockAsync();
+    };
+    init();
+  }, []);
+
   const [permission, askForPermission] = usePermissions(
     [Permissions.CAMERA, Permissions.LOCATION],
     {
@@ -21,10 +28,41 @@ export const Home = () => {
       </View>
     );
   }
-
   return (
-    <View>
-      <Camera />
+    <View style={style.container}>
+      <View style={style.buttons}>
+        <Button
+          style={style.button}
+          mode="outlined"
+          onPress={() => navigation.navigate("Start")}
+        >
+          Start
+        </Button>
+        <Button
+          style={style.button}
+          mode="outlined"
+          onPress={() => navigation.navigate("Start")}
+        >
+          Einstellungen
+        </Button>
+      </View>
     </View>
   );
 };
+
+const style = StyleSheet.create({
+  container: {
+    height: "100%",
+    backgroundColor: "white",
+    display: "flex",
+    justifyContent: "center",
+  },
+  buttons: {
+    width: "50%",
+    marginLeft: "auto",
+    marginRight: "auto",
+  },
+  button: {
+    margin: 5,
+  },
+});
