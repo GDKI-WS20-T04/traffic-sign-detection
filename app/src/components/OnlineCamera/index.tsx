@@ -3,6 +3,7 @@ import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { Camera, CameraCapturedPicture } from "expo-camera";
 import { postImage } from "../../api/prediction";
 import { ImageResult } from "../util/image";
+import * as ImageManipulator from "expo-image-manipulator";
 
 export const OnlineCamera: React.FC = () => {
   const cameraRef = useRef<Camera>(null);
@@ -11,17 +12,20 @@ export const OnlineCamera: React.FC = () => {
     console.time("photo");
     const img:
       | CameraCapturedPicture
-      | undefined = await cameraRef.current?.takePictureAsync({
-      quality: 0.7,
-      base64: true,
-      skipProcessing: true,
-      exif: true,
-    });
-    console.log(img?.exif);
+      | undefined = await cameraRef.current?.takePictureAsync({});
+
+    if (!img?.uri) return;
+
+    const newImg = await ImageManipulator.manipulateAsync(
+      img.uri,
+      [{ resize: { height: 1080, width: 1920 } }],
+      { compress: 0.35, base64: true }
+    );
+
     console.timeEnd("photo");
-    if (img?.base64) {
+    if (newImg.base64) {
       console.time("request");
-      const result: ImageResult = await postImage(img.base64);
+      const result: ImageResult = await postImage(newImg.base64);
       console.timeEnd("request");
       console.log(result);
     }
