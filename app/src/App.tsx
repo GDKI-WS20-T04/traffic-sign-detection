@@ -7,6 +7,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Home } from "./components/Home";
 import { Camera } from "./components/Camera";
+import { OnlineCamera } from "./components/OnlineCamera";
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -18,6 +19,7 @@ export default function App() {
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Start" component={Start} />
           <Stack.Screen name="Camera" component={Camera} />
+          <Stack.Screen name="OnlineCamera" component={OnlineCamera} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
