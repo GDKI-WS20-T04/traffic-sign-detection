@@ -21,7 +21,6 @@ export const OnlineCamera: React.FC<OnlineCameraProps> = ({ setSign }) => {
   }, []);
 
   const loopRequests = async () => {
-    console.log("loop");
     while (loop) {
       console.log("started");
       await takePicture();
@@ -29,6 +28,7 @@ export const OnlineCamera: React.FC<OnlineCameraProps> = ({ setSign }) => {
   };
 
   const takePicture = async () => {
+    console.time("photo");
     await cameraRef.current?.takePictureAsync({
       onPictureSaved: (pic) => sendImage(pic),
     });
@@ -36,18 +36,12 @@ export const OnlineCamera: React.FC<OnlineCameraProps> = ({ setSign }) => {
 
   const sendImage = async (img: CameraCapturedPicture | undefined) => {
     try {
-      console.time("photo");
       if (!img?.uri) return;
-
-      console.log("after image");
-
       const newImg = await ImageManipulator.manipulateAsync(
         img.uri,
         [{ resize: { height: 1080, width: 1920 } }],
         { compress: 0.35, base64: true }
       );
-
-      console.log("after mani");
       console.timeEnd("photo");
       if (newImg.base64) {
         console.time("request");
