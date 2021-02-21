@@ -30,6 +30,7 @@ export const OnlineCamera: React.FC<OnlineCameraProps> = ({ setSign }) => {
 
   const sendImage = async () => {
     try {
+      console.time("photo");
       const img:
         | CameraCapturedPicture
         | undefined = await cameraRef.current?.takePictureAsync({});
