@@ -51,20 +51,6 @@ export const Home: React.FC<HomeProps> = ({ navigation }) => {
         >
           Camera
         </Button>
-        <Button
-          style={style.button}
-          mode="outlined"
-          onPress={() => navigation.navigate("OnlineCamera")}
-        >
-          OnlineCamera
-        </Button>
-        <Button
-          style={style.button}
-          mode="outlined"
-          onPress={() => navigation.navigate("Start")}
-        >
-          Einstellungen
-        </Button>
       </View>
     </View>
   );

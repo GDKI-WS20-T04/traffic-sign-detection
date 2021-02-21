@@ -19,7 +19,6 @@ export default function App() {
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Start" component={Start} />
           <Stack.Screen name="Camera" component={Camera} />
-          <Stack.Screen name="OnlineCamera" component={OnlineCamera} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
