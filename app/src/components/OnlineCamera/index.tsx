@@ -24,17 +24,19 @@ export const OnlineCamera: React.FC<OnlineCameraProps> = ({ setSign }) => {
     console.log("loop");
     while (loop) {
       console.log("started");
-      await sendImage();
+      await takePicture();
     }
   };
 
-  const sendImage = async () => {
+  const takePicture = async () => {
+    await cameraRef.current?.takePictureAsync({
+      onPictureSaved: (pic) => sendImage(pic),
+    });
+  };
+
+  const sendImage = async (img: CameraCapturedPicture | undefined) => {
     try {
       console.time("photo");
-      const img:
-        | CameraCapturedPicture
-        | undefined = await cameraRef.current?.takePictureAsync({});
-
       if (!img?.uri) return;
 
       console.log("after image");
@@ -69,18 +71,7 @@ export const OnlineCamera: React.FC<OnlineCameraProps> = ({ setSign }) => {
         style={styles.camera}
         ref={cameraRef}
         onCameraReady={loopRequests}
-      >
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              sendImage();
-            }}
-          >
-            <Text>HAllo</Text>
-          </TouchableOpacity>
-        </View>
-      </Camera>
+      ></Camera>
     </View>
   );
 };
