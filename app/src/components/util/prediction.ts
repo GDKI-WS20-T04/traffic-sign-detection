@@ -1,4 +1,4 @@
-import { getLabes, PredictionResult } from "./label";
+import { getLabels, PredictionResult } from "./label";
 import * as tf from "@tensorflow/tfjs";
 import { decodeJpeg, fetch } from "@tensorflow/tfjs-react-native";
 import { Image } from "react-native";
@@ -18,7 +18,7 @@ export const predict = async (
   const classes = res[1].dataSync() as Float32Array;
   const scores = res[5].dataSync() as Float32Array;
 
-  return getLabes(classes, scores);
+  return getLabels(classes, scores);
 };
 
 export const predictVideoImage = async (

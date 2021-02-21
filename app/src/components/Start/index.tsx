@@ -12,9 +12,6 @@ export const Start = () => {
 
   useEffect(() => {
     const init = async () => {
-      await ScreenOrientation.lockAsync(
-        ScreenOrientation.OrientationLock.LANDSCAPE
-      );
       await Location.watchPositionAsync(
         {
           accuracy: Location.Accuracy.BestForNavigation,

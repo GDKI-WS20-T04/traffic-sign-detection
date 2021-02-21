@@ -7,6 +7,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Home } from "./components/Home";
 import { Camera } from "./components/Camera";
+import { OnlineCamera } from "./components/OnlineCamera";
 
 export default function App() {
   const Stack = createStackNavigator();

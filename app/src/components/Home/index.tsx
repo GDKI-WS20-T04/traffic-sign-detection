@@ -12,7 +12,9 @@ export interface HomeProps {
 export const Home: React.FC<HomeProps> = ({ navigation }) => {
   useEffect(() => {
     const init = async () => {
-      await ScreenOrientation.unlockAsync();
+      await ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.LANDSCAPE
+      );
     };
     init();
   }, []);
@@ -48,13 +50,6 @@ export const Home: React.FC<HomeProps> = ({ navigation }) => {
           onPress={() => navigation.navigate("Camera")}
         >
           Camera
-        </Button>
-        <Button
-          style={style.button}
-          mode="outlined"
-          onPress={() => navigation.navigate("Start")}
-        >
-          Einstellungen
         </Button>
       </View>
     </View>
