@@ -12,7 +12,9 @@ export interface HomeProps {
 export const Home: React.FC<HomeProps> = ({ navigation }) => {
   useEffect(() => {
     const init = async () => {
-      await ScreenOrientation.unlockAsync();
+      await ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.LANDSCAPE
+      );
     };
     init();
   }, []);
