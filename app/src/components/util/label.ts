@@ -1,6 +1,6 @@
 export const labels: Record<number, Ĺabel> = {
   0: {
-    value: -1,
+    value: Number.MAX_SAFE_INTEGER,
     name: "empty",
     image: require(`../../assets/signs/empty.png`),
   },
