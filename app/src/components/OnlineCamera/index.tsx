@@ -8,9 +8,13 @@ import { labels } from "../util/label";
 
 export interface OnlineCameraProps {
   setSign: React.Dispatch<React.SetStateAction<number>>;
+  setScore: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export const OnlineCamera: React.FC<OnlineCameraProps> = ({ setSign }) => {
+export const OnlineCamera: React.FC<OnlineCameraProps> = ({
+  setSign,
+  setScore,
+}) => {
   const cameraRef = useRef<Camera>(null);
   const [loop, setLoop] = useState(true);
 
@@ -52,6 +56,7 @@ export const OnlineCamera: React.FC<OnlineCameraProps> = ({ setSign }) => {
         );
         if (result.detection_scores[idx] >= 0.8) {
           setSign(result.detection_classes[idx]);
+          setScore(result.detection_scores[idx]);
         }
       }
     } catch (e) {
@@ -64,7 +69,7 @@ export const OnlineCamera: React.FC<OnlineCameraProps> = ({ setSign }) => {
       <Camera
         style={styles.camera}
         ref={cameraRef}
-        onCameraReady={() => {} /*loopRequests*/}
+        onCameraReady={loopRequests}
       ></Camera>
     </View>
   );
