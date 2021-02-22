@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as Location from "expo-location";
 import { LocationGeocodedAddress, LocationObject } from "expo-location";
-import * as ScreenOrientation from "expo-screen-orientation";
 import { View, StyleSheet } from "react-native";
 import { LocationPaper } from "../LocationPaper";
 import { SpeedPaper } from "../SpeedPaper";
