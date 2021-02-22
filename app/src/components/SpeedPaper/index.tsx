@@ -10,15 +10,16 @@ export interface SpeedPaperProps {
 }
 
 export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
-  const [sign, setSign] = useState<number>(32);
+  const [sign, setSign] = useState<number>(0);
   const height = Dimensions.get("window").width;
+  const [score, setScore] = useState(0);
 
   return (
     <View style={style.root}>
       <CustomPaper>
         {/*<View style={style.warning}></View>*/}
         <View style={style.camera}>
-          <OnlineCamera setSign={setSign} />
+          <OnlineCamera setSign={setSign} setScore={setScore} />
         </View>
         <View style={style.content}>
           <View style={style.signView}>
@@ -36,6 +37,8 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
                   100
                 : 0}
             </Text>
+            <Text style={style.textColor}>Score: </Text>
+            <Text style={style.speed}>{score}</Text>
           </View>
         </View>
       </CustomPaper>
