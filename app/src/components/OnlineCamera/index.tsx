@@ -64,7 +64,7 @@ export const OnlineCamera: React.FC<OnlineCameraProps> = ({ setSign }) => {
       <Camera
         style={styles.camera}
         ref={cameraRef}
-        onCameraReady={loopRequests}
+        onCameraReady={() => {} /*loopRequests*/}
       ></Camera>
     </View>
   );

@@ -1,6 +1,6 @@
 import { LocationObject } from "expo-location";
 import React, { useState } from "react";
-import { View, StyleSheet, Text, Image } from "react-native";
+import { View, StyleSheet, Text, Image, Dimensions } from "react-native";
 import { OnlineCamera } from "../OnlineCamera";
 import { CustomPaper } from "../util/CustomPaper";
 import { labels } from "../util/label";
@@ -10,7 +10,7 @@ export interface SpeedPaperProps {
 }
 
 export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
-  const [sign, setSign] = useState<number>(0);
+  const [sign, setSign] = useState<number>(32);
 
   return (
     <View style={style.root}>
@@ -39,6 +39,8 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
   );
 };
 
+const height = Dimensions.get("window").width;
+
 const style = StyleSheet.create({
   root: {
     height: "100%",
@@ -48,6 +50,7 @@ const style = StyleSheet.create({
   },
   content: {
     height: "100%",
+    width: "100%",
     position: "absolute",
     top: 0,
   },
@@ -71,10 +74,14 @@ const style = StyleSheet.create({
     zIndex: 2,
   },
   sign: {
-    transform: [{ scale: 0.42 }, { translateX: -120 }, { translateY: -400 }],
+    width: height / 4,
+    height: height / 4,
+    //transform: [{ scale: 0.42 }, { translateX: -120 }, { translateY: -400 }],
   },
   signView: {
     height: "90%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   camera: {
     //position: "absolute",
