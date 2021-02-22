@@ -11,8 +11,11 @@ export const Start = () => {
   const [location, setLocation] = useState<LocationObject | null>(null);
 
   useEffect(() => {
+    let sub: {
+      remove(): void;
+    };
     const init = async () => {
-      await Location.watchPositionAsync(
+      sub = await Location.watchPositionAsync(
         {
           accuracy: Location.Accuracy.BestForNavigation,
           timeInterval: 500,
@@ -25,6 +28,9 @@ export const Start = () => {
       );
     };
     init();
+    return () => {
+      sub.remove();
+    };
   }, []);
 
   return (
