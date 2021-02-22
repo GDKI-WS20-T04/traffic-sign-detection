@@ -11,6 +11,7 @@ export interface SpeedPaperProps {
 
 export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
   const [sign, setSign] = useState<number>(32);
+  const height = Dimensions.get("window").width;
 
   return (
     <View style={style.root}>
@@ -21,7 +22,10 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
         </View>
         <View style={style.content}>
           <View style={style.signView}>
-            <Image style={style.sign} source={labels[sign].image}></Image>
+            <Image
+              style={{ width: height / 4, height: height / 4 }}
+              source={labels[sign].image}
+            ></Image>
           </View>
           <View style={style.speedContainer}>
             <Text style={style.textColor}>Geschwindigkeit: </Text>
@@ -38,8 +42,6 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
     </View>
   );
 };
-
-const height = Dimensions.get("window").width;
 
 const style = StyleSheet.create({
   root: {
@@ -74,8 +76,6 @@ const style = StyleSheet.create({
     zIndex: 2,
   },
   sign: {
-    width: height / 4,
-    height: height / 4,
     //transform: [{ scale: 0.42 }, { translateX: -120 }, { translateY: -400 }],
   },
   signView: {
