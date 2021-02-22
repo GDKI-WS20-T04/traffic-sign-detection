@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as Location from "expo-location";
 import { LocationGeocodedAddress, LocationObject } from "expo-location";
-import * as ScreenOrientation from "expo-screen-orientation";
 import { View, StyleSheet } from "react-native";
 import { LocationPaper } from "../LocationPaper";
 import { SpeedPaper } from "../SpeedPaper";
@@ -11,8 +10,11 @@ export const Start = () => {
   const [location, setLocation] = useState<LocationObject | null>(null);
 
   useEffect(() => {
+    let sub: {
+      remove(): void;
+    };
     const init = async () => {
-      await Location.watchPositionAsync(
+      sub = await Location.watchPositionAsync(
         {
           accuracy: Location.Accuracy.BestForNavigation,
           timeInterval: 500,
@@ -25,6 +27,9 @@ export const Start = () => {
       );
     };
     init();
+    return () => {
+      sub.remove();
+    };
   }, []);
 
   return (

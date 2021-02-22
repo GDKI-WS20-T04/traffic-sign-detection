@@ -1,6 +1,6 @@
 import { LocationObject } from "expo-location";
 import React, { useState } from "react";
-import { View, StyleSheet, Text, Image } from "react-native";
+import { View, StyleSheet, Text, Image, Dimensions } from "react-native";
 import { OnlineCamera } from "../OnlineCamera";
 import { CustomPaper } from "../util/CustomPaper";
 import { labels } from "../util/label";
@@ -11,17 +11,22 @@ export interface SpeedPaperProps {
 
 export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
   const [sign, setSign] = useState<number>(0);
+  const height = Dimensions.get("window").width;
+  const [score, setScore] = useState(0);
 
   return (
     <View style={style.root}>
       <CustomPaper>
         {/*<View style={style.warning}></View>*/}
         <View style={style.camera}>
-          <OnlineCamera setSign={setSign} />
+          <OnlineCamera setSign={setSign} setScore={setScore} />
         </View>
         <View style={style.content}>
           <View style={style.signView}>
-            <Image style={style.sign} source={labels[sign].image}></Image>
+            <Image
+              style={{ width: height / 4, height: height / 4 }}
+              source={labels[sign].image}
+            ></Image>
           </View>
           <View style={style.speedContainer}>
             <Text style={style.textColor}>Geschwindigkeit: </Text>
@@ -32,6 +37,8 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
                   100
                 : 0}
             </Text>
+            <Text style={style.textColor}>Score: </Text>
+            <Text style={style.speed}>{score}</Text>
           </View>
         </View>
       </CustomPaper>
@@ -48,6 +55,7 @@ const style = StyleSheet.create({
   },
   content: {
     height: "100%",
+    width: "100%",
     position: "absolute",
     top: 0,
   },
@@ -71,10 +79,12 @@ const style = StyleSheet.create({
     zIndex: 2,
   },
   sign: {
-    transform: [{ scale: 0.42 }, { translateX: -120 }, { translateY: -400 }],
+    //transform: [{ scale: 0.42 }, { translateX: -120 }, { translateY: -400 }],
   },
   signView: {
     height: "90%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   camera: {
     //position: "absolute",
