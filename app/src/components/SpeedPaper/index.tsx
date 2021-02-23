@@ -50,7 +50,7 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
   };
 
   useEffect(() => {
-    if (speed + tolerance > speedLimit) {
+    if (speed > speedLimit + tolerance) {
       playSound();
     }
   }, [speed, speedLimit]);
@@ -74,7 +74,7 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
   return (
     <View style={style.root}>
       <CustomPaper>
-        {speed + tolerance > speedLimit ? (
+        {speed > speedLimit + tolerance ? (
           <View style={style.warning}></View>
         ) : null}
         <View style={style.camera}>
