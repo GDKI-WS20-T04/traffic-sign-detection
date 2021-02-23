@@ -13,7 +13,7 @@ export interface SpeedPaperProps {
 
 export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
   const tolerance: number = 5;
-  const [sign, setSign] = useState<number>(2);
+  const [sign, setSign] = useState<number>(0);
   const height = Dimensions.get("window").width;
   const [score, setScore] = useState(0);
   const [testSpeed, setTestSpeed] = useState(0);
