@@ -55,7 +55,6 @@ export const OnlineCamera: React.FC<OnlineCameraProps> = ({
         const idx = result.detection_scores.indexOf(
           Math.max(...result.detection_scores)
         );
-        result.detection_scores.forEach((score) => console.log(score));
 
         if (
           result.detection_scores[idx] >= 0.8 &&
