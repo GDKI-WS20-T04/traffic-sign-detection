@@ -17,7 +17,6 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
   const height = Dimensions.get("window").width;
   const [score, setScore] = useState(0);
   const [testSpeed, setTestSpeed] = useState(0);
-  const [soundFile, setSoundFile] = useState<Audio.Sound>();
   const [memSpeedLimit, setMemSpeedLimit] = useState(Number.MAX_SAFE_INTEGER);
 
   const speedLimit = useMemo(() => {
@@ -38,28 +37,25 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
     [location?.coords.speed]
   );
 
-  useEffect(() => {
-    const init = async () => {
-      console.time("sound");
-      const { sound } = await Audio.Sound.createAsync(
-        require("../../assets/sounds/warning.mp3")
-      );
-      setSoundFile(sound);
-      console.timeEnd("sound");
-    };
-    init();
-  }, []);
+  const playSound = async () => {
+    const { sound } = await Audio.Sound.createAsync(
+      require("../../assets/sounds/warning.mp3")
+    );
+    console.log("sound loaded");
+
+    sound?.playAsync();
+  };
 
   useEffect(() => {
-    if (testSpeed + tolerance > speedLimit) {
-      soundFile?.playAsync();
+    if (speed + tolerance > speedLimit) {
+      playSound();
     }
-  }, [speed]);
+  }, [speed, speedLimit]);
 
   return (
     <View style={style.root}>
       <CustomPaper>
-        {testSpeed + tolerance > speedLimit ? (
+        {speed + tolerance > speedLimit ? (
           <View style={style.warning}></View>
         ) : null}
         <View style={style.camera}>
@@ -81,7 +77,7 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
           </View>
           <View style={style.speedContainer}>
             <Text style={style.textColor}>Geschwindigkeit: </Text>
-            <Text style={style.speed}>{testSpeed}</Text>
+            <Text style={style.speed}>{speed}</Text>
             <Text style={style.textColor}>Score: </Text>
             <Text style={style.speed}>{score}</Text>
           </View>
