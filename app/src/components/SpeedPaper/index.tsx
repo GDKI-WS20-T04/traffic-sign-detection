@@ -17,13 +17,16 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
   const height = Dimensions.get("window").width;
   const [score, setScore] = useState(0);
   const [testSpeed, setTestSpeed] = useState(0);
-  const [memSpeedLimit, setMemSpeedLimit] = useState(Number.MAX_SAFE_INTEGER);
+  const [memSpeedLimit, setMemSpeedLimit] = useState(
+    Number.MAX_SAFE_INTEGER - 1
+  );
 
   const speedLimit = useMemo(() => {
     if (labels[sign].value === -1) {
       return memSpeedLimit;
     } else {
-      setMemSpeedLimit(labels[sign].value);
+      const baseSpeed: number | undefined = labels[sign].baseSpeed;
+      if (baseSpeed) setMemSpeedLimit(baseSpeed);
       return labels[sign].value;
     }
   }, [sign]);
@@ -52,6 +55,22 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
     }
   }, [speed, speedLimit]);
 
+  const renderLimit = () => {
+    switch (speedLimit) {
+      case Number.MAX_SAFE_INTEGER - 1:
+        return <Text style={style.speed}>-</Text>;
+      case Number.MAX_SAFE_INTEGER:
+        return (
+          <Image
+            style={{ width: 30, height: 30, marginTop: 10 }}
+            source={labels[23].image}
+          />
+        );
+      default:
+        return <Text style={style.speed}>{speedLimit}</Text>;
+    }
+  };
+
   return (
     <View style={style.root}>
       <CustomPaper>
@@ -62,13 +81,13 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
           <OnlineCamera setSign={setSign} setScore={setScore} />
         </View>
         <View style={style.content}>
-          <Button
+          {/*<Button
             style={{ position: "absolute" }}
             mode="outlined"
             onPress={() => setTestSpeed(45)}
           >
             Tempo = 45
-          </Button>
+          </Button>*/}
           <View style={style.signView}>
             <Image
               style={{ width: height / 4, height: height / 4 }}
@@ -76,10 +95,14 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
             ></Image>
           </View>
           <View style={style.speedContainer}>
-            <Text style={style.textColor}>Geschwindigkeit: </Text>
-            <Text style={style.speed}>{speed}</Text>
-            <Text style={style.textColor}>Score: </Text>
-            <Text style={style.speed}>{score}</Text>
+            <View style={{ flex: 1 }}>
+              <Text style={style.textColor}>Geschwindigkeit: </Text>
+              <Text style={style.speed}>{speed}</Text>
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={style.textColor}>Tempolimit: </Text>
+              {renderLimit()}
+            </View>
           </View>
         </View>
       </CustomPaper>
@@ -110,7 +133,6 @@ const style = StyleSheet.create({
   },
   speedContainer: {
     flexDirection: "row",
-    alignItems: "center",
     marginLeft: 10,
   },
   warning: {
@@ -124,7 +146,7 @@ const style = StyleSheet.create({
     //transform: [{ scale: 0.42 }, { translateX: -120 }, { translateY: -400 }],
   },
   signView: {
-    height: "90%",
+    height: "80%",
     justifyContent: "center",
     alignItems: "center",
   },
