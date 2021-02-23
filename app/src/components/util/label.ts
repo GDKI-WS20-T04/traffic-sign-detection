@@ -1,6 +1,6 @@
 export const labels: Record<number, Ĺabel> = {
   0: {
-    value: Number.MAX_SAFE_INTEGER,
+    value: Number.MAX_SAFE_INTEGER - 1,
     name: "empty",
     image: require(`../../assets/signs/empty.png`),
   },
@@ -133,26 +133,31 @@ export const labels: Record<number, Ĺabel> = {
     value: 50,
     name: "ort",
     image: require(`../../assets/signs/ort.png`),
+    baseSpeed: 50,
   },
   27: {
     value: 100,
     name: "ortAusgang",
     image: require(`../../assets/signs/ortEnde.png`),
+    baseSpeed: 100,
   },
   28: {
     value: 100,
     name: "ortEnde",
     image: require(`../../assets/signs/ortEnde.png`),
+    baseSpeed: 100,
   },
   29: {
     value: Number.MAX_SAFE_INTEGER,
     name: "autobahn",
     image: require(`../../assets/signs/autobahn.png`),
+    baseSpeed: Number.MAX_SAFE_INTEGER,
   },
   30: {
     value: 100,
     name: "autobahnEnde",
     image: require(`../../assets/signs/autobahnEnde.png`),
+    baseSpeed: 100,
   },
   31: {
     value: 20,
@@ -180,6 +185,7 @@ export interface Ĺabel {
   value: number;
   name: string;
   image: any;
+  baseSpeed?: number;
 }
 
 export interface PredictionResult {
