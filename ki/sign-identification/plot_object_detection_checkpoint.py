@@ -23,7 +23,7 @@ for idx, file in enumerate(files):
     IMAGE_PATHS.append(path + "/" + file)
 
 
-PATH_TO_MODEL_DIR = 'E:/gdki-ws-20-21-projekt/ki/sign-identification/exported-models/version_5'
+PATH_TO_MODEL_DIR = 'E:/gdki-ws-20-21-projekt/ki/sign-identification/exported-models/version_6'
 
 PATH_TO_CFG = PATH_TO_MODEL_DIR + "/pipeline.config"
 PATH_TO_CKPT = PATH_TO_MODEL_DIR + "/saved_model"
@@ -98,9 +98,6 @@ for image_path in IMAGE_PATHS:
     image_np_with_detections = image_np.copy()
 
     matplotlib.rcParams.update({'font.size': 22})
-    print(detections['detection_classes'])
-    print(detections['detection_scores'])
-    print(detections['detection_boxes'][0])
     viz_utils.visualize_boxes_and_labels_on_image_array(
             image_np_with_detections,
             detections['detection_boxes'],
