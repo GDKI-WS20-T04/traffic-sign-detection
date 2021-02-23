@@ -13,7 +13,7 @@ export const LocationPaper: React.FC<LocationPaperProps> = ({ location }) => {
     <View style={style.root}>
       <CustomPaper>
         {location.map((l, idx) => (
-          <View key={idx}>
+          <View key={idx} style={style.content}>
             <CustomTextField heading="Land" text={l.country ?? ""} />
             <CustomTextField heading="Bundesland" text={l.region ?? ""} />
             <CustomTextField heading="Ort" text={l.city ?? ""} />
@@ -32,4 +32,5 @@ const style = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
   },
+  content: { padding: 10 },
 });

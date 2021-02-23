@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Camera, CameraCapturedPicture } from "expo-camera";
 import { postImage } from "../../api/prediction";
 import { ImageResult } from "../util/image";
 import * as ImageManipulator from "expo-image-manipulator";
-import { labels } from "../util/label";
+import { checkSize } from "../util/prediction";
 
 export interface OnlineCameraProps {
   setSign: React.Dispatch<React.SetStateAction<number>>;
@@ -34,6 +34,7 @@ export const OnlineCamera: React.FC<OnlineCameraProps> = ({
   const takePicture = async () => {
     console.time("photo");
     await cameraRef.current?.takePictureAsync({
+      skipProcessing: true,
       onPictureSaved: (pic) => sendImage(pic),
     });
   };
@@ -54,7 +55,11 @@ export const OnlineCamera: React.FC<OnlineCameraProps> = ({
         const idx = result.detection_scores.indexOf(
           Math.max(...result.detection_scores)
         );
-        if (result.detection_scores[idx] >= 0.8) {
+
+        if (
+          result.detection_scores[idx] >= 0.8 &&
+          !checkSize(result.detection_boxes[idx])
+        ) {
           setSign(result.detection_classes[idx]);
           setScore(result.detection_scores[idx]);
         }
