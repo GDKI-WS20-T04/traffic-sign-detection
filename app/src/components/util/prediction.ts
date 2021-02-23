@@ -48,3 +48,10 @@ export const predictImage = async (model?: tf.GraphModel) => {
   const res = await predict(model, imageTensor);
   console.log("finished: ", res);
 };
+
+export const checkSize = (cords: number[]): boolean => {
+  const h = cords[2] - cords[0];
+  const w = cords[3] - cords[1];
+
+  return w > 0.6 || h > 0.6;
+};

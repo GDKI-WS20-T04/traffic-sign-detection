@@ -4,6 +4,7 @@ import { Camera, CameraCapturedPicture } from "expo-camera";
 import { postImage } from "../../api/prediction";
 import { ImageResult } from "../util/image";
 import * as ImageManipulator from "expo-image-manipulator";
+import { checkSize } from "../util/prediction";
 
 export interface OnlineCameraProps {
   setSign: React.Dispatch<React.SetStateAction<number>>;
@@ -55,12 +56,11 @@ export const OnlineCamera: React.FC<OnlineCameraProps> = ({
           Math.max(...result.detection_scores)
         );
         result.detection_scores.forEach((score) => console.log(score));
-        console.log(
-          "Highest",
-          result.detection_scores[idx],
-          result.detection_scores[idx] >= 0.8
-        );
-        if (result.detection_scores[idx] >= 0.8) {
+
+        if (
+          result.detection_scores[idx] >= 0.8 &&
+          !checkSize(result.detection_boxes[idx])
+        ) {
           setSign(result.detection_classes[idx]);
           setScore(result.detection_scores[idx]);
         }
