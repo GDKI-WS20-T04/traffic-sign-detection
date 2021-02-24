@@ -1,11 +1,11 @@
 import { LocationObject } from "expo-location";
 import React, { useEffect, useMemo, useState } from "react";
 import { View, StyleSheet, Text, Image, Dimensions } from "react-native";
-import { Button } from "react-native-paper";
 import { OnlineCamera } from "../OnlineCamera";
 import { CustomPaper } from "../util/CustomPaper";
 import { labels } from "../util/label";
 import { Audio } from "expo-av";
+import { ChangeSpeed } from "./ChangeTempoLimit";
 
 export interface SpeedPaperProps {
   location: LocationObject | null;
@@ -43,6 +43,8 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({
     [location?.coords.speed]
   );
 
+  const getSpeed = () => (devMode ? testSpeed : speed);
+
   const playSound = async () => {
     const { sound } = await Audio.Sound.createAsync(
       require("../../assets/sounds/warning.mp3")
@@ -53,10 +55,10 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({
   };
 
   useEffect(() => {
-    if (speed > speedLimit + tolerance) {
+    if (getSpeed() > speedLimit + tolerance) {
       playSound();
     }
-  }, [speed, speedLimit]);
+  }, [speed, testSpeed, speedLimit]);
 
   const renderLimit = () => {
     switch (speedLimit) {
@@ -77,7 +79,7 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({
   return (
     <View style={style.root}>
       <CustomPaper>
-        {speed > speedLimit + tolerance ? (
+        {getSpeed() > speedLimit + tolerance ? (
           <View style={style.warning}></View>
         ) : null}
         <View style={style.camera}>
@@ -85,13 +87,7 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({
         </View>
         <View style={style.content}>
           {devMode && (
-            <Button
-              style={{ position: "absolute" }}
-              mode="outlined"
-              onPress={() => setTestSpeed(45)}
-            >
-              Tempo = 45
-            </Button>
+            <ChangeSpeed testSpeed={testSpeed} setTestSpeed={setTestSpeed} />
           )}
           <View style={style.signView}>
             <Image
@@ -102,7 +98,7 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({
           <View style={style.speedContainer}>
             <View style={{ flex: 1 }}>
               <Text style={style.textColor}>Geschwindigkeit: </Text>
-              <Text style={style.speed}>{speed}</Text>
+              <Text style={style.speed}>{getSpeed()}</Text>
             </View>
             <View style={{ flex: 1 }}>
               <Text style={style.textColor}>Tempolimit: </Text>
