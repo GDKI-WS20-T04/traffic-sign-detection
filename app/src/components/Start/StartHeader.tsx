@@ -3,14 +3,35 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Colors, IconButton } from "react-native-paper";
 
-export const StartHeader: React.FC<StackHeaderTitleProps> = () => {
+export interface StartHeaderProps {
+  changeDevMode: () => void;
+  stackHeaderTitleProps: StackHeaderTitleProps;
+  devMode: boolean;
+}
+
+export const StartHeader: React.FC<StartHeaderProps> = ({
+  devMode,
+  changeDevMode,
+}) => {
   return (
     <View style={style.root}>
       <View style={style.textContainer}>
         <Text style={style.text}>Sign Detector</Text>
       </View>
+      {devMode && (
+        <View style={style.textContainer}>
+          <Text style={style.devText}>Dev</Text>
+        </View>
+      )}
       <View>
-        <IconButton icon="camera" color={Colors.red500} size={20} />
+        <IconButton
+          icon="camera"
+          color={Colors.red500}
+          size={20}
+          onPress={() => {}}
+          onLongPress={changeDevMode}
+          rippleColor="#0000"
+        />
       </View>
     </View>
   );
@@ -29,5 +50,8 @@ const style = StyleSheet.create({
   text: {
     fontSize: 20,
     fontWeight: "bold",
+  },
+  devText: {
+    color: "#696969",
   },
 });

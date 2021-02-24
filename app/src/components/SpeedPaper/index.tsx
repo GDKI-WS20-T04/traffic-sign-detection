@@ -9,13 +9,16 @@ import { Audio } from "expo-av";
 
 export interface SpeedPaperProps {
   location: LocationObject | null;
+  devMode: boolean;
 }
 
-export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
+export const SpeedPaper: React.FC<SpeedPaperProps> = ({
+  location,
+  devMode,
+}) => {
   const tolerance: number = 5;
   const [sign, setSign] = useState<number>(0);
   const height = Dimensions.get("window").width;
-  const [score, setScore] = useState(0);
   const [testSpeed, setTestSpeed] = useState(0);
   const [memSpeedLimit, setMemSpeedLimit] = useState(
     Number.MAX_SAFE_INTEGER - 1
@@ -78,16 +81,18 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
           <View style={style.warning}></View>
         ) : null}
         <View style={style.camera}>
-          <OnlineCamera setSign={setSign} setScore={setScore} />
+          <OnlineCamera setSign={setSign} />
         </View>
         <View style={style.content}>
-          {/*<Button
-            style={{ position: "absolute" }}
-            mode="outlined"
-            onPress={() => setTestSpeed(45)}
-          >
-            Tempo = 45
-          </Button>*/}
+          {devMode && (
+            <Button
+              style={{ position: "absolute" }}
+              mode="outlined"
+              onPress={() => setTestSpeed(45)}
+            >
+              Tempo = 45
+            </Button>
+          )}
           <View style={style.signView}>
             <Image
               style={{ width: height / 4, height: height / 4 }}

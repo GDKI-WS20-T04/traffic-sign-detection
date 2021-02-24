@@ -8,7 +8,7 @@ import { checkSize } from "../util/prediction";
 
 export interface OnlineCameraProps {
   setSign: React.Dispatch<React.SetStateAction<number>>;
-  setScore: React.Dispatch<React.SetStateAction<number>>;
+  setScore?: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const OnlineCamera: React.FC<OnlineCameraProps> = ({
@@ -61,7 +61,7 @@ export const OnlineCamera: React.FC<OnlineCameraProps> = ({
           !checkSize(result.detection_boxes[idx])
         ) {
           setSign(result.detection_classes[idx]);
-          setScore(result.detection_scores[idx]);
+          setScore && setScore(result.detection_scores[idx]);
         }
       }
     } catch (e) {
