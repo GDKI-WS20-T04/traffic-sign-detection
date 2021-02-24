@@ -7,6 +7,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Home } from "./components/Home";
 import { Camera } from "./components/Camera";
+import { StartHeader } from "./components/Start/StartHeader";
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -16,7 +17,11 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Start" component={Start} />
+          <Stack.Screen
+            name="Start"
+            component={Start}
+            options={{ headerTitle: (props) => <StartHeader {...props} /> }}
+          />
           <Stack.Screen name="Camera" component={Camera} />
         </Stack.Navigator>
       </NavigationContainer>
