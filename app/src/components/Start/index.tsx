@@ -5,7 +5,11 @@ import { View, StyleSheet } from "react-native";
 import { LocationPaper } from "../LocationPaper";
 import { SpeedPaper } from "../SpeedPaper";
 
-export const Start = () => {
+export interface StartProps {
+  devMode: boolean;
+}
+
+export const Start: React.FC<StartProps> = ({ devMode }) => {
   const [geo, setGeo] = useState<LocationGeocodedAddress[]>([]);
   const [location, setLocation] = useState<LocationObject | null>(null);
 
@@ -35,7 +39,7 @@ export const Start = () => {
   return (
     <View style={style.root}>
       <View style={{ flex: 2 }}>
-        <SpeedPaper location={location} />
+        <SpeedPaper location={location} devMode={devMode} />
       </View>
       <View style={{ flex: 1 }}>
         <LocationPaper location={geo} />

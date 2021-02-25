@@ -1,21 +1,24 @@
 import { LocationObject } from "expo-location";
 import React, { useEffect, useMemo, useState } from "react";
 import { View, StyleSheet, Text, Image, Dimensions } from "react-native";
-import { Button } from "react-native-paper";
 import { OnlineCamera } from "../OnlineCamera";
 import { CustomPaper } from "../util/CustomPaper";
 import { labels } from "../util/label";
 import { Audio } from "expo-av";
+import { ChangeSpeed } from "./ChangeTempoLimit";
 
 export interface SpeedPaperProps {
   location: LocationObject | null;
+  devMode: boolean;
 }
 
-export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
+export const SpeedPaper: React.FC<SpeedPaperProps> = ({
+  location,
+  devMode,
+}) => {
   const tolerance: number = 5;
   const [sign, setSign] = useState<number>(0);
   const height = Dimensions.get("window").width;
-  const [score, setScore] = useState(0);
   const [testSpeed, setTestSpeed] = useState(0);
   const [memSpeedLimit, setMemSpeedLimit] = useState(
     Number.MAX_SAFE_INTEGER - 1
@@ -40,6 +43,8 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
     [location?.coords.speed]
   );
 
+  const getSpeed = () => (devMode ? testSpeed : speed);
+
   const playSound = async () => {
     const { sound } = await Audio.Sound.createAsync(
       require("../../assets/sounds/warning.mp3")
@@ -50,10 +55,10 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
   };
 
   useEffect(() => {
-    if (speed > speedLimit + tolerance) {
+    if (getSpeed() > speedLimit + tolerance) {
       playSound();
     }
-  }, [speed, speedLimit]);
+  }, [speed, testSpeed, speedLimit]);
 
   const renderLimit = () => {
     switch (speedLimit) {
@@ -74,20 +79,16 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
   return (
     <View style={style.root}>
       <CustomPaper>
-        {speed > speedLimit + tolerance ? (
+        {getSpeed() > speedLimit + tolerance ? (
           <View style={style.warning}></View>
         ) : null}
         <View style={style.camera}>
-          <OnlineCamera setSign={setSign} setScore={setScore} />
+          <OnlineCamera setSign={setSign} />
         </View>
         <View style={style.content}>
-          {/*<Button
-            style={{ position: "absolute" }}
-            mode="outlined"
-            onPress={() => setTestSpeed(45)}
-          >
-            Tempo = 45
-          </Button>*/}
+          {devMode && (
+            <ChangeSpeed testSpeed={testSpeed} setTestSpeed={setTestSpeed} />
+          )}
           <View style={style.signView}>
             <Image
               style={{ width: height / 4, height: height / 4 }}
@@ -97,7 +98,7 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({ location }) => {
           <View style={style.speedContainer}>
             <View style={{ flex: 1 }}>
               <Text style={style.textColor}>Geschwindigkeit: </Text>
-              <Text style={style.speed}>{speed}</Text>
+              <Text style={style.speed}>{getSpeed()}</Text>
             </View>
             <View style={{ flex: 1 }}>
               <Text style={style.textColor}>Tempolimit: </Text>
