@@ -9,12 +9,17 @@ theme:
 
 nav:
   - Home:
-      - 'index.md'
+      - "index.md"
   - Ki:
-      - 'ki/index.md'
+      - "ki/index.md"
 
 markdown_extensions:
   - pymdownx.tabbed
   - pymdownx.superfences
 
 dev_addr: "127.0.0.1:8001"
+
+plugins:
+  - search
+  - pdf-export:
+      combined: true
