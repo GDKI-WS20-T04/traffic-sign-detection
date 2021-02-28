@@ -9,15 +9,15 @@
 
 ### Mock-Up
 
-Um die genannten Features sinnvoll in einer App zu verpacken, wurde zuerst ein Mach-up mit Hilfe von [Figma](https://www.figma.com)
+Um die genannten Features sinnvoll in einer App zu verpacken, wurde zuerst ein Mock-up mit Hilfe von [Figma](https://www.figma.com) erstellt.
 
-Die App soll nur im Querformat nutzbar sein, damit die Fotos welche das HAndy macht ebenfalls im Querformat entstehen und somit mit höherer Wahrscheinlichkeit ein Straßenschild einfangen.
+Die App soll nur im Querformat nutzbar sein, damit die Fotos welche das Smartphone macht ebenfalls im Querformat entstehen und somit mit höherer Wahrscheinlichkeit ein Straßenschild einfangen.
 
 **Startscreen**
 
 ![startscreen](../assets/images/startscreen.png){: style="width:60%; border: 1px solid black;"}
 
-Damit der Benutzer nicht direkt beim Öffnen der App mit dem Tracking der Umgebung beginnt, sollt es zuerst einen Startbldschirm geben, auf welchem der BEnutzer bewusstr die Anwendung starten kann.
+Damit der Benutzer nicht direkt beim Öffnen der App mit dem Tracking der Umgebung beginnt, soll es zuerst einen Startbldschirm geben, auf welchem der Benutzer bewusst die Anwendung starten kann.
 
 **Detectionscreen**
 
@@ -32,7 +32,7 @@ Wird das aktuelle Tempolimit überschritten, so soll sich die linke Seite der Ap
 
 ## Labels
 
-Damit die App das passende Bild sowie die richtige Geschwindigkeit anzeigt, werden für jede Klasse, welche die KI zurück gibt ein Objekt vom Typ `Label` in einem Record gespeichert.
+Damit die App das passende Bild, sowie die richtige Geschwindigkeit anzeigt, werden für jede Klasse, welche die KI zurück gibt, ein Objekt vom Typ `Label` in einem Record gespeichert.
 
 ### Interface Label
 
@@ -56,10 +56,10 @@ In `value` wird der Wert `-1` gespeichert.
 Speichert den Namen des Labels zu der zugehörigen Klasse.
 
 **image**  
-speichert den Pfad zum Bild, welches bei dem erkennen des Labels in der App angezeigt werden soll.
+Speichert den Pfad zum Bild, welches bei dem Erkennen des Labels in der App angezeigt werden soll.
 
 **baseSpeed**  
-Speichert die Grundgeschwindigkeit ab.  
+Speichert die Grundgeschwindigkeit.  
 Ort = 50, außerorts = 100, Autobahn = Number.MAX_SAFE_INTEGER (unbegrenzt)
 
 
@@ -70,9 +70,9 @@ Ort = 50, außerorts = 100, Autobahn = Number.MAX_SAFE_INTEGER (unbegrenzt)
 
 **Geschwindigkeitsanzeige**
 
-Damit die aktuelle Geschwindigkeit des Smartphones anzuzeigen nutzen wir die Bibliothek des *expo-location* Expo-Frameworks. 
+Um die aktuelle Geschwindigkeit des Smartphones anzuzeigen, nutzen wir die Bibliothek *expo-location* des Expo-Frameworks. 
 
-Dazu wird beim Laden des Screens die Methoden `watchPositionAsync` aufgerufen. Dieser Methode wird ein Objekt übergeben in welchem man die Genauigkeit *(accuracy)* und das Zeitinterval *(timeInterval in ms)* festlegen kann.
+Dazu wird beim Laden des Screens die Methoden `watchPositionAsync` aufgerufen. Dieser Methode wird ein Objekt übergeben, in welchem man die Genauigkeit *(accuracy)* und das Zeitinterval *(timeInterval in ms)* festlegen kann.
 
 ```ts
   await Location.watchPositionAsync(
@@ -99,15 +99,15 @@ Ebenso kann man der Methode eine Funktion übergeben, welche nach jedem Position
   );
 ```
 
-In unserem Fall nutzen wir dies um die neuste Position in einer Vatiablen zu speichern, `setLocation(loc);`, sowie mit Hilfe der Methode `reverseGeocodeAsync(loc.coords)`, welcher wir die Position übergeben, die genaue Adresse herauszubekommen.
+In unserem Fall nutzen wir dies, um die neuste Position in einer Variablen zu speichern, (`setLocation(loc);`), sowie mit Hilfe der Methode `reverseGeocodeAsync(loc.coords)`, welcher wir die Position übergeben, die genaue Adresse herauszubekommen.
 
 Da wie im Mock-up beschrieben, sich die Oberfläche in zwei Teile aufteilt, gibt es in React Native dafür zwei Komponenten.
 
 ### SpeedPaper
 
-Diesem Komponent wird das Positionsobjekt übergeben, welches in der Callback-Methode gesetzt wurde.
+Diesem Component wird das Positionsobjekt übergeben, welches in der Callback-Methode gesetzt wurde.
 
-Der Komponent beinhaltet mehrere Variablen:
+Der Component beinhaltet mehrere Variablen:
 
 **tolerance**
 
@@ -119,7 +119,7 @@ In der Variablen `sign` wird die Klasse des aktuell erkannten Bild gespeichert. 
 
 **memSpeedLimit**
 
-Hier wird der zuletzt erkannt baseSpeed eines Labels gespeichtert.
+Hier wird der zuletzt erkannte baseSpeed eines Labels gespeichtert.
 
 **speedLimit**
 
@@ -179,7 +179,7 @@ const speed = useMemo(
 
 **Anzeige des Bildes**
 
-Um das passende Bild in der App anzuzeigen wir lediglich dem Image-Component von Ract Native der passende Pfad übergeben.
+Um das passende Bild in der App anzuzeigen wird lediglich dem Image-Component von Ract Native der passende Pfad übergeben.
 
 Dieser wird mit Hilfe der erkannten Klasse, welche in `sign` gespeichert ist aus dem Record geholt.
 
@@ -202,18 +202,18 @@ In diesem Fall wird beim Tempolimit ein "-" angezeigt, da noch kein Schild erkan
 
 - **speedLimit = `MAX_SAFE_INTEGER`**  
 Ist das speedLimit `MAX_SAFE_INTEGER` so befindet sich der Benutzer auf einer Autobahn und die Geschwindigkeit ist unbegrenzt.  
-Angezeigt wird ein Auflösunhs-Schild.
+Angezeigt wird ein Auflösungs-Schild.
 
 ![unbegrenzt](../assets/images/unbegrenzt.png){: style="width:20%; border: 1px solid black;"}
 
 - **speedLimit = number**  
-Ist das speedLimit eine Zahl, wo wird das Limit auf diese Zahl gesetzt.
+Ist das speedLimit eine Zahl, so wird das Limit auf diese Zahl gesetzt.
 
 ![begrenzt](../assets/images/begrenzt.png){: style="width:20%; border: 1px solid black;"}
 
-### Warnung bei Überschreitung des Tempolimits
+#### Warnung bei Überschreitung des Tempolimits
 
-Damit der Bildschirm wie im Mock-up gezeigt bei Überschreitung des Tempolimits rot wir, wird der rote Screen nur angezeigt, sollte die aktuelle GEshwindigkeit größer als das Tempolimit plus Toleranz sein.
+Damit der Bildschirm wie im Mock-up gezeigt bei Überschreitung des Tempolimits rot wird, wird der rote Screen nur angezeigt, sollte die aktuelle Geschwindigkeit größer als das Tempolimit plus Toleranz sein.
 
 ```html
 {speed > speedLimit + tolerance ? (
@@ -235,7 +235,7 @@ const playSound = async () => {
 
 Hier wird mit Hilfe der Methode `createAsync` des Expo-Frameworks ein beliebiger Sound geladen und mit `playAsync` abgespielt.
 
-## LocationPaper
+### LocationPaper
 
-Im Rechten Teil des Bildschirm wird der Component `LocationPaper` angezeigt. dieser bekommt lediglich die im Detectionscreen gesetzte Adresse übergeben und zeigt diese an.
+Im Rechten Teil des Bildschirm wird der Component `LocationPaper` angezeigt. Dieser bekommt lediglich die im Detectionscreen gesetzte Adresse übergeben und zeigt diese an.
 
