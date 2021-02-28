@@ -2,40 +2,46 @@
 
 ## Datensatz erstellen
 
-Um einen Datensatz zu erstellen, haben wir erst einmal definiert, welche Schilder wir benötigen und diese in eine Tabelle mit den zugehörigen Labelnamen geschrieben.  
-Das Dokument finden Sie [hier](https://github.com/GDKI-WS20-T04/traffic-sign-detection/blob/master/traffic-signs-data/SchilderTabelle.pdf)
+Um einen Datensatz zu erstellen, haben wir erst einmal definiert, welche Schilder wir benötigen und diese in eine
+Tabelle mit den zugehörigen Labelnamen geschrieben.  
+Das Dokument finden
+Sie [hier](https://github.com/GDKI-WS20-T04/traffic-sign-detection/blob/master/traffic-signs-data/SchilderTabelle.pdf)
 
-Danach haben wir nach Datensätzen im Internet recherchiert. Dort sind wir auf einen Datensatz der University of Copenhagen gestoßen, welcher 2158 Bilder von deutschen Verkehrschilder beinhaltet.  
-Den Datensatz finden sie [hier](https://sid.erda.dk/public/archives/ff17dc924eba88d5d01a807357d6614c/published-archive.html).
+Danach haben wir nach Datensätzen im Internet recherchiert. Dort sind wir auf einen Datensatz der University of
+Copenhagen gestoßen, welcher 2158 Bilder von deutschen Verkehrschilder beinhaltet.  
+Den Datensatz finden
+sie [hier](https://sid.erda.dk/public/archives/ff17dc924eba88d5d01a807357d6614c/published-archive.html).
 
-Ebenfalls haben wir einen eigenen Datensatz erstellt, in dem wir mit dem Auto gefahren sind und mit dem Smartphone aus der Windschutzscheibe heraus hefilmt haben.  
+Ebenfalls haben wir einen eigenen Datensatz erstellt, in dem wir mit dem Auto gefahren sind und mit dem Smartphone aus
+der Windschutzscheibe heraus hefilmt haben.  
 Diese Videos haben wir dann nach Schildern durchsucht und diese als Screenshots herausgenommen.
 
-Im Anschluss haben wir beide Datensätze zusammengeführt und nach den Labelnamen, welche wir in der oben genannten Tabelle definiert hatten, sortiert.
+Im Anschluss haben wir beide Datensätze zusammengeführt und nach den Labelnamen, welche wir in der oben genannten
+Tabelle definiert hatten, sortiert.
 
 Zum Schluss mussten die Bilder dann lediglich gelabelt werden.
 
 ## Recherche
 
-Bevor wir begonnen haben ein Netz zu trainieren, haben wir uns zuerst umgesehen welche Netze andere Github Projekte
-verwendet haben. Dazu haben wir uns eine Vielzahl an Projekten angesehen, haben uns aber primär an den Folgenden
-Orientiert:
+Bevor wir begonnen haben ein Netz zu trainieren, haben wir uns zuerst umgesehen welche Netze andere ähnliche Github
+Projekte verwendet haben. Dazu haben wir uns eine Vielzahl an Projekten angesehen, haben uns aber primär an den
+Folgenden orientiert:
 
 - [Road-Sign-Detection/Tensorflow-Street-Sign-Recognition](https://github.com/Project-Road-Sign-Detection/Tensorflow-Street-Sign-Recognition)
 - [Traffic-sign-detection](https://github.com/aarcosg/traffic-sign-detection)
 - [Real-Time-Traffic-Sign-Detection](https://github.com/Mehran970/Real-Time-Traffic-Sign-Detection)
 
-Bei allen Projekten hatten wir festgestellt, das primär schnelle Netze verwendet werden, damit eine Live-Detection auf
+Bei allen Projekten hatten wir festgestellt, dass primär schnelle Netze verwendet werden, damit eine Live-Detection auf
 dem Handy überhaupt möglich ist. Hauptsächlich wurden dabei folgende Modelle verwendet:
 
 - Faster R-CNN
 - SSD_Mobilenet_COCO
 
 Das Faster R-CNN hat den Vorteil, dass es Objekte schnell und zuverlässig erkennen kann. Das SSD_Mobilenet_COCO
-ermöglicht jedoch eine noch schnellere Erkennung bei geringeren Hardwareanforderungen ist dabei aber unzuverlässiger.
+ermöglicht jedoch eine noch schnellere Erkennung bei geringeren Hardwareanforderungen, ist dabei aber unzuverlässiger.
 
-Da wir in erster Linie eine möglichst schnelles Netze entwickeln wollte, haben wir uns zu Beginn für das
-SSD_Mobilenet_COCO entschieden.
+Da wir in erster Linie eine möglichst schnelles Netze entwickeln wollen für den Handyeinsatz, haben wir uns zu Beginn
+für das SSD_Mobilenet_COCO entschieden.
 
 ## Training
 
@@ -75,8 +81,8 @@ alle Labels definiert die das Netz später erkennen soll. Ein Eintrag könnte so
 ```js
 item;
 {
-  id: 1;
-  name: "zwanzig";
+    id: 1;
+    name: "zwanzig";
 }
 ```
 
@@ -122,8 +128,8 @@ Des Weiteren kann während des Trainings der Trainingsfortschritt live verfolgt 
 Tensor-Boards: `tensorboard --logdir=<Pfad zum Modell>`
 Im Tensor-Board befinden sich eine Vielzahl an Grafiken, die den Trainingsfortschritt darlegen.
 
-Nachdem das Model dann fertig ist, kann es exportiert werden, dazu kann das `exporter_main_v2` Skript genutzt werden.
-Auch dies wird wieder mit Startparametern ausgeführt:
+Nachdem das Model dann fertig ist, kann es exportiert werden, dazu wird das `exporter_main_v2` Skript genutzt. Auch dies
+wird wieder mit Startparametern ausgeführt:
 
 ```sh
 --input_type image_tensor
@@ -154,7 +160,8 @@ ein Video zusammen.
 Neben diesen Evaluierungsmöglichkeiten, haben wir zusätzlich auch noch ein Programm geschrieben, dass eine Reihe von
 Testbildern analysiert und einen Score berechnet wie gut das Modell funktioniert hat. Diese Programme
 sind `model_comparison.py` und `model_comparison_2.py`. Der Unterschiede der beiden ist lediglich, dass im einen der
-erstellte Graph geladen wird und im anderem der Checkpoint.
+erstellte Graph geladen wird und im anderem der Checkpoint. Der Score wird berechnet aus den Wahrscheinlichkeiten der
+erkannten Bilder. Ein höherer Score bedeutet somit eine besseres Netz.
 
 ## Versionen
 
@@ -162,8 +169,7 @@ Den Oben beschriebenen Ablauf haben wir nun für mehrere Netze angewandt, welche
 
 Begonnen haben wir mit einem SSD MobileNet V2 FPNLite 640x640. Die Einstellungen haben wir hier nicht weiter angepasst,
 außer das wir die Steps auf 20.000 reduziert haben, um etwas schneller bereits ein Ergebnis zu haben. Das Ergebnis war
-auch bereits einigermaßen zufriedenstellend. An der Learning-Rate konnte unter anderem festgestellt werden, dass noch
-weiter trainiert werden kann.
+auch bereits einigermaßen zufriedenstellend.
 
 ![](../assets/images/Model1_1.png){: style="width:49%"}
 ![](../assets/images/Model1_2.png){: style="width:49%"}
@@ -183,8 +189,8 @@ Das Zone 30 Ende Schild wurde zwar falsch erkannt, aber auch nur mit einer sehr 
 Dreißiger Schild wurde ebenfalls zwar erkannt aber auch noch relativ unsicher.
 
 Nachdem das erste SSD MobileNet V2 FPNLite 640x640 mit 20.000 Schritten schon gut funktioniert hatte und wir am
-Trainingsverlauf gesehen hatten das noch potenzial besteht, haben wir das Model erneut durchlaufen lassen. Dieses Mal
-dann aber mit 50.000 Steps. Auch hier wieder der Trainingsverlauf im Tensor-Board:
+Trainingsverlauf(Lernrate) gesehen hatten das noch potenzial besteht, haben wir das Model erneut durchlaufen lassen.
+Dieses Mal dann aber mit 50.000 Steps. Auch hier wieder der Trainingsverlauf im Tensor-Board:
 
 ![](../assets/images/Model2_1.png){: style="width:49%"}
 ![](../assets/images/Model2_2.png){: style="width:49%"}
@@ -211,9 +217,8 @@ gestoßen, dass die RTX 2070 nicht genug Video-RAM besitzt, um das Training durc
 
 Als alternative hätten wir das Netz auch auf Google Colab berechnen lassen können. Wir haben uns dann aber dafür
 entschieden ein Faster R-CNN ResNet50 V1 640x640 zu nutzen. Dieses funktioniert auch mit nur 8 GB Video-RAM. Dieses Netz
-hat jedoch nicht wirklich funktioniert, was mitunter auch daran liegen könnte, dass wir doch einen sehr kleinen
-Datensatz mit nur 1000 Bilder hatten. Die Lernrate klingt zwar plausibel, ist aber längst nicht so hoch wie beim SSD
-MobileNet.
+hat jedoch auch nicht funktioniert, was mitunter auch daran liegen könnte, dass wir doch einen sehr kleinen Datensatz
+mit nur 1000 Bilder hatten. Die Lernrate klingt zwar plausibel, ist aber längst nicht so hoch wie beim SSD MobileNet.
 
 ![](../assets/images/Model4_1.png){: style="width:49%"}
 ![](../assets/images/Model4_2.png){: style="width:49%"}
@@ -258,6 +263,6 @@ Auch das Compare Skript hat ergeben, dass das Netz nicht wirklich funktioniert:
 - 16,35 Sekunden
 
 Das Compare Skript hatte unsere Vermutung bestätigt, dass mit dieser geringen Pixelanzahl keine Objekterkennung
-funktioniert. Hier hätte man ggf. 2 Netze nutzen müssen. Eines welches ein Schild erkennt und ein anderes, welches dann
-das Schild klassifiziert. Da wir dazu aber den gesamten Datensatz umbauen müssten haben wir in der App dann, dass beste
+funktioniert. Hier hätte man ggf. 2 Netze nutzen müssen. Das erste müsste nur das Schild erkennen und das zweite dann
+dass Schild klassizieren. Da wir dazu aber den gesamten Datensatz umbauen müssten haben wir in der App dann, dass beste
 SSD MobileNet V2 FPNLite 640x640 genutzt.
