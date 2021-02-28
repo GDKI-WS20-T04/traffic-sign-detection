@@ -143,5 +143,13 @@ Die Klassification von Bildern aus einem Kammera Stream ist ganz einfach möglic
 
 ## Probleme
 
+Die Einrichtung und Verwendung von Tensorflow Js funktioniert zwar ohne Probleme, allerdings hatten wir mit unserem Modell große Performace Probleme. Hierbei hat anfangs 
+die Klassification eines Bildes `20 Sekunden` gedauert. Da dies natürlich viel zu lang ist, haben wir geschaut ob man die Performance noch irgendwie Optimieren kann. Hierbei sind 
+wir darauf gestossen das man beim Konvertieren Optimierungs Allgorithmen verwenden kann. Bei unserem Modell hat der `float16 quantization` Allgorithmus am Besten funktioniert[^3].
+Mit dieser Optimierung konnten wir die Klassification eines Bildes auf `14 Sekunden` veringern. Da dies allerdings auch noch nicht aussreicht haben wir uns dafür entschieden 
+Tensorflow Js nicht zu verwenden und Statdessen auf eine Clinet Server architektur zu setzen.
+
+
 [^1]: Quelle: https://blog.tensorflow.org/2020/02/tensorflowjs-for-react-native-is-here.html
 [^2]: Tensorflow JS bietet auch noch weitere möglichkeiten eine "Vorhersage" durchzuführen
+[^3]: Die verwendung hiervon wurde im Abschitt [Konvertierung](#konvertierung) beschrieben

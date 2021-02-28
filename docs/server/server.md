@@ -5,6 +5,8 @@ Diese Route ist unter der url "/image" zu erreichen und erwartet im `body` der A
 
 !!swagger openapi.yaml!!
 
+![openapi](../assets/images/openapi.png){: style="width:100%;"}
+
 # Server starten
 
 Der Server kann mit dem Befehl `python api.py` gestartet werden. Dazu wird auch hier wieder eine lauffähige TensorFlow
