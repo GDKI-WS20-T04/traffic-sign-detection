@@ -266,3 +266,23 @@ Das Compare Skript hatte unsere Vermutung bestätigt, dass mit dieser geringen P
 funktioniert. Hier hätte man ggf. 2 Netze nutzen müssen. Das erste müsste nur das Schild erkennen und das zweite dann
 dass Schild klassizieren. Da wir dazu aber den gesamten Datensatz umbauen müssten haben wir in der App dann, dass beste
 SSD MobileNet V2 FPNLite 640x640 genutzt.
+
+## Falsche Verkehrszeichen
+
+Zum Testen unsere KI haben wir zum einem bei Google nach einem Werbeplakat gesucht, welches einem Verkehrsschild ähnlich sieht.
+
+![ü30](../assets/ue30.jpg){: style="width:80%"}
+
+Wie unten links zu erkennen, wurde dieses Bild mit einer Wahrscheinlichkeit von 58% als Zone30-Schild erkannt.
+
+Das nächste Testbild, ist uns beim tatsächlichen Testfahren untergekommen.
+
+![ü30](../assets/ruecksicht.jpeg){: style="width:80%"}
+
+Hier wurde zu 69% ein 30-Schild und zu 43% ein Zone30-Schild erkannt.
+
+Das letzte hier gezeigte fehlerhafte erkannte Verkehrsschild ist ebenfalls bei einer Testfahrt entstanden. Hier wurde ein Wahlplakat zu 59% als Spielstraße erkannt.
+
+![plakat](../assets/plakat.jpeg){: style="width:80%"}
+
+Da unsere App nur Schilder mit einer Wahrscheinlichkeit von 80% oder höher anzeigt, wären diese Schilder für uns kein Problem.
