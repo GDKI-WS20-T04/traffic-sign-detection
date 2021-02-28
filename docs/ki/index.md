@@ -75,8 +75,8 @@ alle Labels definiert die das Netz später erkennen soll. Ein Eintrag könnte so
 ```js
 item;
 {
-    id: 1;
-    name: "zwanzig";
+  id: 1;
+  name: "zwanzig";
 }
 ```
 
@@ -170,11 +170,9 @@ weiter trainiert werden kann.
 
 Das Compare Skript kam bereits auf folgende Werte:
 
-12 / 25 Bilder erkannt
-
-7,19 Punkte
-
-28,3 Sekunden Laufzeit
+- 12 / 25 Bilder erkannt
+- 7,19 Punkte
+- 28,3 Sekunden Laufzeit
 
 Hier 2 Beispiel Bilder:
 
@@ -193,11 +191,9 @@ dann aber mit 50.000 Steps. Auch hier wieder der Trainingsverlauf im Tensor-Boar
 
 Das Compare Skript kam bereits auf deutlich bessere Werte:
 
-18 / 25 Bilder
-
-15,74 Punkte
-
-17,76 Sekunden
+- 18 / 25 Bilder
+- 15,74 Punkte
+- 17,76 Sekunden
 
 Auch hier wieder die zwei Beispiel Bilder:
 
@@ -224,11 +220,9 @@ MobileNet.
 
 Das Compare Skript kam auf folgende ernüchternde Werte:
 
-1 / 25 Bilder
-
-0,005 Punkte
-
-17,04 Sekunden
+- 1 / 25 Bilder
+- 0,005 Punkte
+- 17,04 Sekunden
 
 Das Netz funktioniert nicht wirklich. Hier haben wir versucht das Netz noch einmal mit anderen Einstellungen zu starten,
 was jedoch nicht zum Erfolg geführt hat. Da wir nicht allzu viel Zeit investieren wollten, um ein nicht funktionierendes
@@ -245,11 +239,9 @@ haben sich zudem noch einmal verbessert:
 
 Auch das Compare Skript hat dieses Netz noch einmal bessert bewertet:
 
-19 / 25 Bilder
-
-16,4 Punkte
-
-17,77 Sekunden
+- 19 / 25 Bilder
+- 16,4 Punkte
+- 17,77 Sekunden
 
 Da wir bisher nur Modelle mit einer Auflösung von 640x640 trainiert hatten, wollten wir auch noch einmal ein Netz mit
 einer geringeren Pixelanzahl trainieren. Dabei haben wir uns für ein SSD MobileNet v2 320x320 entschieden. Wir waren uns
@@ -260,11 +252,10 @@ viel zu erkennen ist. Dies hat sich dann auch im Trainingsverlauf dargelegt.
 ![](../assets/images/Model6_2.png){: style="width:49%"}
 
 Auch das Compare Skript hat ergeben, dass das Netz nicht wirklich funktioniert:
-0 / 25 Bilder
 
-0 Punkte
-
-16,35 Sekunden
+- 0 / 25 Bilder
+- 0 Punkte
+- 16,35 Sekunden
 
 Das Compare Skript hatte unsere Vermutung bestätigt, dass mit dieser geringen Pixelanzahl keine Objekterkennung
 funktioniert. Hier hätte man ggf. 2 Netze nutzen müssen. Eines welches ein Schild erkennt und ein anderes, welches dann
