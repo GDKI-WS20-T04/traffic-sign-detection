@@ -14,10 +14,14 @@ nav:
       - "ki/index.md"
   - App:
       - "app/konzept.md"
+      - "app/installation.md"
 
 markdown_extensions:
   - pymdownx.tabbed
   - pymdownx.superfences
+  - attr_list
+  - admonition
+  - pymdownx.details
 
 dev_addr: "127.0.0.1:8001"
 
@@ -25,3 +29,4 @@ plugins:
   - search
   - pdf-export:
       combined: true
+      enabled_if_env: PDF_EXPORT
