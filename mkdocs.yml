@@ -14,9 +14,10 @@ nav:
       - "ki/index.md"
   - App:
       - "app/index.md"
-      - "app/konzept.md"
       - "app/installation.md"
+      - "app/konzept.md"
       - "app/tensorflowJs.md"
+      - "app/client.md"
   - Quellen:
       - "sources.md"
 
