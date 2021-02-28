@@ -8,24 +8,24 @@ Das Dokument finden
 Sie [hier](https://github.com/GDKI-WS20-T04/traffic-sign-detection/blob/master/traffic-signs-data/SchilderTabelle.pdf)
 
 Danach haben wir nach Datensätzen im Internet recherchiert. Dort sind wir auf einen Datensatz der University of
-Copenhagen gestoßen, welcher 2158 Bilder von deutschen Verkehrschilder beinhaltet.  
+Copenhagen gestoßen, welcher 2158 Bilder von deutschen Verkehrschildern beinhaltet.  
 Den Datensatz finden
-sie [hier](https://sid.erda.dk/public/archives/ff17dc924eba88d5d01a807357d6614c/published-archive.html).
+Sie [hier](https://sid.erda.dk/public/archives/ff17dc924eba88d5d01a807357d6614c/published-archive.html).
 
 Ebenfalls haben wir einen eigenen Datensatz erstellt, in dem wir mit dem Auto gefahren sind und mit dem Smartphone aus
-der Windschutzscheibe heraus hefilmt haben.  
+der Windschutzscheibe heraus gefilmt haben.  
 Diese Videos haben wir dann nach Schildern durchsucht und diese als Screenshots herausgenommen.
 
 Im Anschluss haben wir beide Datensätze zusammengeführt und nach den Labelnamen, welche wir in der oben genannten
 Tabelle definiert hatten, sortiert.
 
-Zum Schluss mussten die Bilder dann lediglich gelabelt werden.
+Zum Schluss mussten die Bilder dann lediglich noch gelabelt werden.
 
 ## Recherche
 
 Bevor wir begonnen haben ein Netz zu trainieren, haben wir uns zuerst umgesehen welche Netze andere ähnliche Github
 Projekte verwendet haben. Dazu haben wir uns eine Vielzahl an Projekten angesehen, haben uns aber primär an den
-Folgenden orientiert:
+folgenden orientiert:
 
 - [Road-Sign-Detection/Tensorflow-Street-Sign-Recognition](https://github.com/Project-Road-Sign-Detection/Tensorflow-Street-Sign-Recognition)
 - [Traffic-sign-detection](https://github.com/aarcosg/traffic-sign-detection)
@@ -40,7 +40,7 @@ dem Handy überhaupt möglich ist. Hauptsächlich wurden dabei folgende Modelle 
 Das Faster R-CNN hat den Vorteil, dass es Objekte schnell und zuverlässig erkennen kann. Das SSD_Mobilenet_COCO
 ermöglicht jedoch eine noch schnellere Erkennung bei geringeren Hardwareanforderungen, ist dabei aber unzuverlässiger.
 
-Da wir in erster Linie eine möglichst schnelles Netze entwickeln wollen für den Handyeinsatz, haben wir uns zu Beginn
+Da wir in erster Linie ein möglichst schnelles Netze für den Handyeinsatz entwickeln wollen, haben wir uns zu Beginn
 für das SSD_Mobilenet_COCO entschieden.
 
 ## Training
@@ -48,7 +48,7 @@ für das SSD_Mobilenet_COCO entschieden.
 ### Ablauf
 
 Das Training haben wir mit einer RTX 2070 umgesetzt, welche jedoch nur 8 GB Video-RAM besitzt und dadurch für das
-Training mitunter Stunden braucht. Das Training kann in folgenden Schritten umgesetzt werden, vorausgesetzt ist hierbei
+Training mitunter Stunden braucht. Das Training kann in folgenden Schritten umgesetzt werden, vorrausgesetzt ist hierbei
 natürlich eine Tensorflow Installation mit einer GPU Unterstützung.
 [Setting up TensorFlow (GPU) on Windows 10](https://towardsdatascience.com/setting-up-tensorflow-on-windows-gpu-492d1120414c)
 
@@ -64,10 +64,10 @@ natürlich eine Tensorflow Installation mit einer GPU Unterstützung.
 
 6. Evaluieren / Programmeinsatz
 
-Beim Ablauf dieser Schritte haben wir uns anhand dieser Dokumentation orientiert:
+Beim Ablauf dieser Schritte haben wir uns an dieser Dokumentation orientiert:
 [Training Custom Object Detector](https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/training.html)
 
-Ebenso werden bei den meisten Schritten Python Programme zur Hilfe gezogen, diese sind in der oben angegebenen
+Ebenso werden bei den meisten Schritten Python-Programme zur Hilfe gezogen, diese sind in der oben angegebenen
 Dokumentation enthalten und wurden dann für unsere Zwecke ggf. angepasst.
 
 Im ersten Schritt muss unser Datensatz in einen Trainings- und Test-Ordner unterteilt werden. Dies könnte
@@ -75,7 +75,7 @@ selbstverständlich auch von Hand erledigt werden, ist jedoch mit einem Programm
 `partition_dataset.py` mit den Startparametern `-x -i <OrdnerPfadZuBilder> -r 0.1` verwendet werden. Nach dem Ausführen
 dieses Skripts wurde dann ein Test sowie Train Ordner erstellt.
 
-Bevor jetzt weiter gemacht werden kann, muss zuerst die Label-Datei erstellt werden. In der `label.pbtxt` File werden
+Bevor weiter gemacht werden kann, muss zuerst die Label-Datei erstellt werden. In der `label.pbtxt` File werden
 alle Labels definiert die das Netz später erkennen soll. Ein Eintrag könnte so aussehen:
 
 ```js
@@ -89,11 +89,10 @@ item;
 Danach können dann die Tensorflow Record Dateien erstellt werden, dazu wird das Skript
 `generate_tfrecord.py` genutzt. Dies muss mit dem
 Startparameter `-x <OrdnerPfadZuBilder> -l <PfadZuLabels> -o < PfadFürDieErstellteFile>\(test/train).record` ausgeführt
-werden. Dieses Skript muss dann einmal für den Test sowie den Train Ordner ausgeführt werden.
+werden. Dieses Skript muss dann einmal für den Test, sowie den Train Ordner ausgeführt werden.
 
 Nachdem nun die Tensorflow Record Dateien erstellt wurden, muss im Tensorflow Modell Zoo ein Modell heruntergeladen
-werden.
-[TensorFlow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md)
+werden([TensorFlow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md)).
 Sobald die Wahl des Modells getroffen wurde und ein Modell heruntergeladen wurde muss dies noch entpackt, sowie in den
 Projektordner verschoben werden, da wir es im nachfolgendem Schritt benötigen.
 
@@ -165,7 +164,7 @@ erkannten Bilder. Ein höherer Score bedeutet somit eine besseres Netz.
 
 ## Versionen
 
-Den Oben beschriebenen Ablauf haben wir nun für mehrere Netze angewandt, welche hier noch einmal näher erläutert werden.
+Den oben beschriebenen Ablauf haben wir nun für mehrere Netze angewandt, welche hier noch einmal näher erläutert werden.
 
 Begonnen haben wir mit einem SSD MobileNet V2 FPNLite 640x640. Die Einstellungen haben wir hier nicht weiter angepasst,
 außer das wir die Steps auf 20.000 reduziert haben, um etwas schneller bereits ein Ergebnis zu haben. Das Ergebnis war
@@ -269,7 +268,7 @@ SSD MobileNet V2 FPNLite 640x640 genutzt.
 
 ## Falsche Verkehrszeichen
 
-Zum Testen unsere KI haben wir zum einem bei Google nach einem Werbeplakat gesucht, welches einem Verkehrsschild ähnlich sieht.
+Zum Testen unsere KI haben wir zum einen bei Google nach einem Werbeplakat gesucht, welches einem Verkehrsschild ähnlich sieht.
 
 ![ü30](../assets/ue30.jpg){: style="width:80%"}
 
