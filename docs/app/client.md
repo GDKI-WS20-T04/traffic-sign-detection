@@ -1,6 +1,6 @@
 # Client
 
-Um die BErechnung der KI zu beschleunigen, wird in diesem Fall die Berechnung auf einem Server ausgelagert.
+Um die Berechnung der KI zu beschleunigen, wird in diesem Fall die Berechnung auf einem Server ausgelagert.
 
 Der Client(Smartphone) macht also lediglich das Bild und schickt dieses an den Server. Dieser Analysiert das Bild und sendet das ergebnis zurück an den Client.
 
