@@ -1,0 +1,38 @@
+openapi: "3.0.3"
+
+paths:
+  /image:
+    post:
+      tags:
+        - image-detection
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                base64_image:
+                  type: string
+                  format: base64
+      responses:
+        "200":
+          description: image classification
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detection_classes:
+                    type: array
+                    items:
+                      type: number
+                  detection_scores:
+                    type: array
+                    items:
+                      type: number
+                  detection_boxes:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: number

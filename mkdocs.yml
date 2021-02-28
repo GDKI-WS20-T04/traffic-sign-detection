@@ -18,6 +18,8 @@ nav:
       - "app/konzept.md"
       - "app/tensorflowJs.md"
       - "app/client.md"
+  - Server:
+      - "server/server.md"
   - Quellen:
       - "sources.md"
 
@@ -36,3 +38,4 @@ plugins:
   - pdf-export:
       combined: true
       enabled_if_env: PDF_EXPORT
+  - render_swagger
