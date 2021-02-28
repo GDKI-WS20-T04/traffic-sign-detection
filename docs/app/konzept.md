@@ -204,4 +204,38 @@ In diesem Fall wird beim Tempolimit ein "-" angezeigt, da noch kein Schild erkan
 Ist das speedLimit `MAX_SAFE_INTEGER` so befindet sich der Benutzer auf einer Autobahn und die Geschwindigkeit ist unbegrenzt.  
 Angezeigt wird ein Auflösunhs-Schild.
 
-![nodetect](../assets/images/unbegrenzt.png){: style="width:20%; border: 1px solid black;"}
+![unbegrenzt](../assets/images/unbegrenzt.png){: style="width:20%; border: 1px solid black;"}
+
+- **speedLimit = number**  
+Ist das speedLimit eine Zahl, wo wird das Limit auf diese Zahl gesetzt.
+
+![begrenzt](../assets/images/begrenzt.png){: style="width:20%; border: 1px solid black;"}
+
+### Warnung bei Überschreitung des Tempolimits
+
+Damit der Bildschirm wie im Mock-up gezeigt bei Überschreitung des Tempolimits rot wir, wird der rote Screen nur angezeigt, sollte die aktuelle GEshwindigkeit größer als das Tempolimit plus Toleranz sein.
+
+```html
+{speed > speedLimit + tolerance ? (
+  <View style={style.warning}></View>
+) : null}
+```
+
+Ebenfalls wir bei jeder Veränderung des Tempos eben diese Bedingung überprüft und bei Überschreitung ein Sound mit Hilfe der Methode `playSound` abgespielt.
+
+```ts
+const playSound = async () => {
+  const { sound } = await Audio.Sound.createAsync(
+    require("../../assets/sounds/warning.mp3")
+  );
+
+  sound?.playAsync();
+};
+```
+
+Hier wird mit Hilfe der Methode `createAsync` des Expo-Frameworks ein beliebiger Sound geladen und mit `playAsync` abgespielt.
+
+## LocationPaper
+
+Im Rechten Teil des Bildschirm wird der Component `LocationPaper` angezeigt. dieser bekommt lediglich die im Detectionscreen gesetzte Adresse übergeben und zeigt diese an.
+
