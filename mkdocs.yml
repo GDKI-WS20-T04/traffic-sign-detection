@@ -2,17 +2,42 @@ site_name: GDKI - Projekt
 
 theme:
   features:
-      - navigation.tabs
-      - navigation.tabs.sticky
+    - navigation.tabs
+    - navigation.tabs.sticky
   name: material
   logo: images/myCargonautLogo.png
 
 nav:
-  - Home: 
-    - 'index.md'
+  - Home:
+      - "index.md"
+  - Ki:
+      - "ki/index.md"
+  - App:
+      - "app/konzept.md"
+      - "app/installation.md"
+      - "app/verwendung.md"
+      - "app/tensorflowJs.md"
+      - "app/client.md"
+      - "app/tensorflowLite.md"
+  - Server:
+      - "server/server.md"
+  - Quellen:
+      - "sources.md"
 
 markdown_extensions:
   - pymdownx.tabbed
   - pymdownx.superfences
+  - attr_list
+  - admonition
+  - pymdownx.details
+  - footnotes
+  - pymdownx.magiclink
 
 dev_addr: "127.0.0.1:8001"
+
+plugins:
+  - search
+  - pdf-export:
+      combined: true
+      enabled_if_env: PDF_EXPORT
+  - render_swagger
