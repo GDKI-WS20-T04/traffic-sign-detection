@@ -15,11 +15,11 @@ einen [Converter](https://www.tensorflow.org/js/guide/conversion) an.
 Die konvertierung eines Modells funktioniert sehr einfach, die konvertierung kann mit dem
 Konsolenbefehl `tensorflowjs_wizard` gestartet werden. Danach kommen eine Vielzahl von Einstellungen die vorgenommen
 werden müssen:
-![](../assets/images/konv.PNG)
+![](../assets/images/konv.PNG){: style="width:100%"}
 
 Die Einstellungen wie oben angegeben wurden für alle unsere Tensorflow-JS Models verwendet. Es gibt zudem bereits hier
 Komprimierungsmöglichkeiten. Den größten Performance Boost hatten wir mit der float16 quantization festgestellt.
-![](../assets/images/small.PNG)
+![](../assets/images/small.PNG){: style="width:100%"}
 
 Der Output dieser Konvertierung (`model.json`, `group1-shard*of*.bin`) kann man dann mit TensorflowJs laden und
 verwenden (siehe [Vorhersage](#vorhersage))
@@ -39,28 +39,28 @@ Package [`@expo/metro-config`](https://www.npmjs.com/package/@expo/metro-config)
 
 ## Vorhersage
 
-Um Tensorflow Js in React Native verwenden zu können muss dieses erst initalisiert werden.
-Dies sollte beim Anzeigen eines Kompoenten passieren welcher Tensorflow Js verwendet.
+Um Tensorflow Js in React Native verwenden zu können muss dieses erst initalisiert werden. Dies sollte beim Anzeigen
+eines Kompoenten passieren welcher Tensorflow Js verwendet.
 
 ```tsx
 
 export const Camera = () => {
-  const [isTfReady, setIsTfReady] = useState(false);
+    const [isTfReady, setIsTfReady] = useState(false);
 
-  useEffect(() => {
-    const initTf = async () => {
-    // Wait for tf to be ready.
-    await tf.ready();
+    useEffect(() => {
+        const initTf = async () => {
+            // Wait for tf to be ready.
+            await tf.ready();
 
-    // Signal to the app that tensorflow.js can now be used.
-    setIsTfReady(true);
-  };
+            // Signal to the app that tensorflow.js can now be used.
+            setIsTfReady(true);
+        };
 
-  //...
+//...
 ```
 
-!!! warning
-    Hierbei ist es wichtig das man erst das Tensorflow Object (`tf`) verwendet nachdem `tf.ready();` erflogreich ausgeführt wurde. Hierfür wurde der State `isTfReady`
+!!! warning Hierbei ist es wichtig das man erst das Tensorflow Object (`tf`) verwendet nachdem `tf.ready();` erflogreich
+ausgeführt wurde. Hierfür wurde der State `isTfReady`
 gesetzt um die Komponenten erst nach dem Initalisieren anzuzeigen.
 
 ## Bilder/Video
