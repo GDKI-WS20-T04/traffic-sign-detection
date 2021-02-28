@@ -2,7 +2,7 @@
 
 Um die Berechnung der KI zu beschleunigen, wird in diesem Fall die Berechnung auf einem Server ausgelagert.
 
-Der Client(Smartphone) macht also lediglich das Bild und schickt dieses an den Server. Dieser Analysiert das Bild und sendet das ergebnis zurück an den Client.
+Der Client(Smartphone) macht also lediglich das Bild und schickt dieses an den Server. Dieser analysiert das Bild und sendet das Ergebnis zurück an den Client.
 
 ![client_server](../assets/images/client_server.png){: style="width:60%;"}
 
@@ -18,7 +18,7 @@ Um ein Bild aufzunehmen kann der vom Expo-Framework bereitgestellte Component `C
 ></Camera>
 ```
 
-Hierzu wird dem Component ein Referenz-Objekt übergeben, sowie eine Methode welche aufgerufen wird, wenn die Kamera ferig geladen ist.
+Hierzu wird dem Component ein Referenz-Objekt übergeben, sowie eine Methode, welche aufgerufen wird wenn die Kamera fertig geladen ist.
 
 **loopRequests()**
 
@@ -30,9 +30,9 @@ const loopRequests = async () => {
 };
 ```
 
-solange die Variablen `loop` auf *true* gesetzt ist, wird die Methode `takePicture()` aufgerufen.
+Solange die Variablen `loop` auf *true* gesetzt ist, wird die Methode `takePicture()` aufgerufen.
 
-Beim Laden des Components ist wird `loop` mit *true* initialisiert. Sobald der Component entladen wird, wird die Variable auf *false* gesetzt, sodass keine weiteren Fotos gemacht werden.
+Beim Laden des Components wird `loop` mit *true* initialisiert. Sobald der Component entladen wird, wird die Variable auf *false* gesetzt, sodass keine weiteren Fotos gemacht werden.
 
 **takePicture()**
 
@@ -48,7 +48,7 @@ await cameraRef.current?.takePictureAsync({
 ```
 
 - **skipProcessing**:  
-überspringt die Anpassungen der Orientierung des Bildes.
+Überspringt die Anpassungen der Orientierung des Bildes.
 
 - **onPictureSaved**:  
 Ein Callback, welcher denn Prozess des Abspeichern des Bildes überspringt.
@@ -108,7 +108,7 @@ const idx = result.detection_scores.indexOf(
 );
 ```
 
-Daraufhin wird überprüft, ob dieser Wert größer oder gleich 0,8 ist. Dieser Wert ergibt sich aus dem Testen der KI. Wir haben festgestellt, dass Schilder welche mit einer Wahrscheinlichkeit von 80% oder höher erkannt werden, immer richtig erkannt wurden.
+Daraufhin wird überprüft, ob dieser Wert größer oder gleich 0,8 ist. Dieser Wert ergibt sich aus dem Testen der KI. Wir haben festgestellt, dass Schilder welche mit einer Wahrscheinlichkeit von 80% oder höher erkannt werden, fast immer richtig erkannt wurden.
 
 ```ts
 result.detection_scores[idx] >= 0.8
