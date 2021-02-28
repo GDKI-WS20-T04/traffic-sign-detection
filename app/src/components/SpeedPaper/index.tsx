@@ -162,7 +162,7 @@ const style = StyleSheet.create({
   snackbarContainer: {
     position: "absolute",
     zIndex: 3,
-    top: 60,
+    top: 62,
     display: "flex",
     width: "100%",
     flex: 1,
