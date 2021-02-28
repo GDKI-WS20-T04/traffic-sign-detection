@@ -8,7 +8,7 @@ Da diese wird seit dem 04.02.2020[^1] eine Offiziell unterstütztung für **Reac
 Um ein Tensorflow modell in Tensorflow Js zu verwenden muss dieses erst in ein Format Konvertiert werden welches Tensorflow Js verwenden kann.
 Hierfür bietet Tensorflow einen [Converter](https://www.tensorflow.org/js/guide/conversion) an.
 
-![TensorflowJS Konvertierung](../assets/images/app/convert_tensorflow_js.png){: style="height:400px;width:600px"}
+![TensorflowJS Konvertierung](../assets/images/app/convert_tensorflow_js.png){: style="height:350px;width:600px"}
 
 <!--TODO anleitung?-->
 
@@ -25,6 +25,30 @@ Um TensorflowJs in React Native zu Verwenden müssen einige Packages installiert
     Damit [Schritt 3](https://www.npmjs.com/package/@tensorflow/tfjs-react-native#step-3-configure-metro) der Anleitung funktioniert kann es sein das man noch das Package [`@expo/metro-config`](https://www.npmjs.com/package/@expo/metro-config) installiert werden muss.
 
 ## Vorhersage
+
+Um Tensorflow Js in React Native verwenden zu können muss dieses erst initalisiert werden.
+Dies sollte beim Anzeigen eines Kompoenten passieren welcher Tensorflow Js verwendet.
+
+```tsx
+
+export const Camera = () => {
+  const [isTfReady, setIsTfReady] = useState(false);
+
+  useEffect(() => {
+    const initTf = async () => {
+    // Wait for tf to be ready.
+    await tf.ready();
+
+    // Signal to the app that tensorflow.js can now be used.
+    setIsTfReady(true);
+  };
+
+  //...
+```
+
+!!! warning
+    Hierbei ist es wichtig das man erst das Tensorflow Object (`tf`) verwendet nachdem `tf.ready();` erflogreich ausgeführt wurde. Hierfür wurde der State `isTfReady`
+gesetzt um die Komponenten erst nach dem Initalisieren anzuzeigen.
 
 ## Bilder/Video
 
