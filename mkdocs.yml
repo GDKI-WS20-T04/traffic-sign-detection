@@ -17,6 +17,7 @@ nav:
       - "app/konzept.md"
       - "app/installation.md"
       - "app/tensorflowJs.md"
+      - "app/verwendung.md"
   - Quellen:
       - "sources.md"
 
