@@ -26,4 +26,4 @@ ob sich ein valider Link in der Zwischenablage befindet) oder der unten stehende
 
 !!! tip 
       Damit die App korrekt funktioniert, muss auch der Server gestartet sein (Die Anleitung hierfür befindet
-      sich [hier](./client.md))
+      sich [hier](../server/server.md#server-starten))
