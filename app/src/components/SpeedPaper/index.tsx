@@ -6,6 +6,7 @@ import { CustomPaper } from "../util/CustomPaper";
 import { labels } from "../util/label";
 import { Audio } from "expo-av";
 import { ChangeSpeed } from "./ChangeTempoLimit";
+import { Snackbar } from "react-native-paper";
 
 export interface SpeedPaperProps {
   location: LocationObject | null;
@@ -20,6 +21,7 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({
   const [sign, setSign] = useState<number>(0);
   const height = Dimensions.get("window").width;
   const [testSpeed, setTestSpeed] = useState(0);
+  const [error, setError] = useState(false);
   const [memSpeedLimit, setMemSpeedLimit] = useState(
     Number.MAX_SAFE_INTEGER - 1
   );
@@ -79,11 +81,16 @@ export const SpeedPaper: React.FC<SpeedPaperProps> = ({
   return (
     <View style={style.root}>
       <CustomPaper>
+        <View style={style.snackbarContainer}>
+          <Snackbar visible={error} onDismiss={() => {}} style={style.snackbar}>
+            No connection to the server
+          </Snackbar>
+        </View>
         {getSpeed() > speedLimit + tolerance ? (
           <View style={style.warning}></View>
         ) : null}
         <View style={style.camera}>
-          <OnlineCamera setSign={setSign} />
+          <OnlineCamera setSign={setSign} setError={setError} />
         </View>
         <View style={style.content}>
           {devMode && (
@@ -143,18 +150,24 @@ const style = StyleSheet.create({
     width: "100%",
     zIndex: 2,
   },
-  sign: {
-    //transform: [{ scale: 0.42 }, { translateX: -120 }, { translateY: -400 }],
-  },
   signView: {
     height: "80%",
     justifyContent: "center",
     alignItems: "center",
   },
   camera: {
-    //position: "absolute",
-    //zIndex: -1,
     height: "100%",
     opacity: 0,
+  },
+  snackbarContainer: {
+    position: "absolute",
+    zIndex: 3,
+    top: 60,
+    display: "flex",
+    width: "100%",
+    flex: 1,
+  },
+  snackbar: {
+    backgroundColor: "#f44336",
   },
 });

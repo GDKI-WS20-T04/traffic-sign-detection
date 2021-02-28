@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { Camera, CameraCapturedPicture } from "expo-camera";
 import { postImage } from "../../api/prediction";
 import { ImageResult } from "../util/image";
@@ -9,11 +9,13 @@ import { checkSize } from "../util/prediction";
 export interface OnlineCameraProps {
   setSign: React.Dispatch<React.SetStateAction<number>>;
   setScore?: React.Dispatch<React.SetStateAction<number>>;
+  setError: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const OnlineCamera: React.FC<OnlineCameraProps> = ({
   setSign,
   setScore,
+  setError,
 }) => {
   const cameraRef = useRef<Camera>(null);
   const [loop, setLoop] = useState(true);
@@ -37,6 +39,11 @@ export const OnlineCamera: React.FC<OnlineCameraProps> = ({
       skipProcessing: true,
       onPictureSaved: (pic) => sendImage(pic),
     });
+  };
+
+  const handleError = () => {
+    setError(true);
+    setLoop(false);
   };
 
   const sendImage = async (img: CameraCapturedPicture | undefined) => {
@@ -63,9 +70,12 @@ export const OnlineCamera: React.FC<OnlineCameraProps> = ({
           setSign(result.detection_classes[idx]);
           setScore && setScore(result.detection_scores[idx]);
         }
+
+        // Remove error if request was successfull
+        setError(false);
       }
     } catch (e) {
-      console.error(e);
+      handleError();
     }
   };
 
