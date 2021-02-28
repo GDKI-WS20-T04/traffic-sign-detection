@@ -17,8 +17,8 @@ nav:
       - "app/installation.md"
       - "app/konzept.md"
       - "app/tensorflowJs.md"
-      - "app/verwendung.md"
       - "app/client.md"
+      - "app/verwendung.md"
   - Quellen:
       - "sources.md"
 
@@ -29,6 +29,7 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - footnotes
+  - pymdownx.magiclink
 
 dev_addr: "127.0.0.1:8001"
 
