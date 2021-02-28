@@ -60,10 +60,10 @@ Bevor jetzt weiter gemacht werden kann, muss zuerst die Label-Datei erstellt wer
 alle Labels definiert die das Netz später erkennen soll. Ein Eintrag könnte so aussehen:
 
 ```js
-item
+item;
 {
-    id: 1
-    name: 'zwanzig'
+  id: 1;
+  name: "zwanzig";
 }
 ```
 
@@ -154,8 +154,8 @@ außer das wir die Steps auf 20.000 reduziert haben, um etwas schneller bereits 
 auch bereits einigermaßen zufriedenstellend. An der Learning-Rate konnte unter anderem festgestellt werden, dass noch
 weiter trainiert werden kann.
 
-![](../assets/images/Model1_1.png)
-![](../assets/images/Model1_2.png)
+![](../assets/images/Model1_1.png){: style="height:150px;width:150px"}
+![](../assets/images/Model1_2.png){: style="height:150px;width:150px"}
 
 Das Compare Skript kam bereits auf folgende Werte:
 
@@ -167,8 +167,8 @@ Das Compare Skript kam bereits auf folgende Werte:
 
 Hier 2 Beispiel Bilder:
 
-![](../assets/images/Model1_3.jpg)
-![](../assets/images/Model1_4.jpg)
+![](../assets/images/Model1_3.jpg){: style="height:150px;width:150px"}
+![](../assets/images/Model1_4.jpg){: style="height:150px;width:150px"}
 
 Das Zone 30 Ende Schild wurde zwar falsch erkannt, aber auch nur mit einer sehr geringen Wahrscheinlichkeit. Das
 Dreißiger Schild wurde ebenfalls zwar erkannt aber auch noch relativ unsicher.
@@ -177,8 +177,8 @@ Nachdem das erste SSD MobileNet V2 FPNLite 640x640 mit 20.000 Schritten schon gu
 Trainingsverlauf gesehen hatten das noch potenzial besteht, haben wir das Model erneut durchlaufen lassen. Dieses Mal
 dann aber mit 50.000 Steps. Auch hier wieder der Trainingsverlauf im Tensor-Board:
 
-![](../assets/images/Model2_1.png)
-![](../assets/images/Model2_2.png)
+![](../assets/images/Model2_1.png){: style="height:150px;width:150px"}
+![](../assets/images/Model2_2.png){: style="height:150px;width:150px"}
 
 Das Compare Skript kam bereits auf deutlich bessere Werte:
 
@@ -190,8 +190,8 @@ Das Compare Skript kam bereits auf deutlich bessere Werte:
 
 Auch hier wieder die zwei Beispiel Bilder:
 
-![](../assets/images/Model2_3.jpg)
-![](../assets/images/Model2_4.jpg)
+![](../assets/images/Model2_3.jpg){: style="height:150px;width:150px"}
+![](../assets/images/Model2_4.jpg){: style="height:150px;width:150px"}
 
 Wie man erkennt werden die beiden Bilder schon deutlich sicherer und jetzt auch richtig erkannt als zuvor. Jedoch
 besteht hier noch Verbesserungspotenzial. An der Lernrate haben wir jedoch festgestellt das noch mehr Steps zu nichts
@@ -200,7 +200,7 @@ mehr geführt hätten.
 Als Nächstes haben wir dann ein Faster R-CNN ResNet101 V1 640x640 versucht. Hier sind wir aber leider auf das Problem
 gestoßen, dass die RTX 2070 nicht genug Video-RAM besitzt, um das Training durchzuführen.
 
-![](../assets/images/Model3_1.png)
+![](../assets/images/Model3_1.png){: style="height:150px;width:150px"}
 
 Als alternative hätten wir das Netz auch auf Google Colab berechnen lassen können. Wir haben uns dann aber dafür
 entschieden ein Faster R-CNN ResNet50 V1 640x640 zu nutzen. Dieses funktioniert auch mit nur 8 GB Video-RAM. Dieses Netz
@@ -208,8 +208,8 @@ hat jedoch nicht wirklich funktioniert, was mitunter auch daran liegen könnte, 
 Datensatz mit nur 1000 Bilder hatten. Die Lernrate klingt zwar plausibel, ist aber längst nicht so hoch wie beim SSD
 MobileNet.
 
-![](../assets/images/Model4_1.png)
-![](../assets/images/Model4_2.png)
+![](../assets/images/Model4_1.png){: style="height:150px;width:150px"}
+![](../assets/images/Model4_2.png){: style="height:150px;width:150px"}
 
 Das Compare Skript kam auf folgende ernüchternde Werte:
 
@@ -229,8 +229,8 @@ haben wir dann das SSD MobileNet V2 FPNLite 640x640 noch einmal trainiert. Die R
 einmal verbessert. Der Trainingsverlauf war identisch mit dem vorherigem SSD MobileNet. Die Resultate der Testbilder
 haben sich zudem noch einmal verbessert:
 
-![](../assets/images/Model5_1.jpg)
-![](../assets/images/Model5_2.jpg)
+![](../assets/images/Model5_1.jpg){: style="height:150px;width:150px"}
+![](../assets/images/Model5_2.jpg){: style="height:150px;width:150px"}
 
 Auch das Compare Skript hat dieses Netz noch einmal bessert bewertet:
 
@@ -245,8 +245,8 @@ einer geringeren Pixelanzahl trainieren. Dabei haben wir uns für ein SSD Mobile
 aber bereits vor dem Training unsicher, ob das Netz überhaupt funktionieren kann, da bei diesen wenigen Pixeln nicht
 viel zu erkennen ist. Dies hat sich dann auch im Trainingsverlauf dargelegt.
 
-![](../assets/images/Model6_1.png)
-![](../assets/images/Model6_2.png)
+![](../assets/images/Model6_1.png){: style="height:150px;width:150px"}
+![](../assets/images/Model6_2.png){: style="height:150px;width:150px"}
 
 Auch das Compare Skript hat ergeben, dass das Netz nicht wirklich funktioniert:
 0 / 25 Bilder
@@ -259,4 +259,3 @@ Das Compare Skript hatte unsere Vermutung bestätigt, dass mit dieser geringen P
 funktioniert. Hier hätte man ggf. 2 Netze nutzen müssen. Eines welches ein Schild erkennt und ein anderes, welches dann
 das Schild klassifiziert. Da wir dazu aber den gesamten Datensatz umbauen müssten haben wir in der App dann, dass beste
 SSD MobileNet V2 FPNLite 640x640 genutzt.
-
