@@ -15,21 +15,20 @@ Die App soll nur im Querformat nutzbar sein, damit die Fotos welche das HAndy ma
 
 **Startscreen**
 
-
-<img src="../images/startscreen.png" width="60%" style="border: 1px solid black;"/>
+![startscreen](../assets/images/startscreen.png){: style="width:60%; border: 1px solid black;"}
 
 Damit der Benutzer nicht direkt beim Öffnen der App mit dem Tracking der Umgebung beginnt, sollt es zuerst einen Startbldschirm geben, auf welchem der BEnutzer bewusstr die Anwendung starten kann.
 
 **Detectionscreen**
 
-<img src="../images/detectionscreen.png" width="60%" style="border: 1px solid black;"/>
+![detectionscreen](../assets/images/detectionscreen.png){: style="width:60%; border: 1px solid black;"}
 
 Wird dann die App durch das Drücken auf den *Start-Button* gestarten, so wird der Benutzer auf dem *detectionscreen* geleitet. Dort soll dem Benutzer auf der linken Seite das zuletzt erkannte Schild als Bild angezeigt werden, sowie auch die aktuelle Geschwindigkeit angezeigt werden.  
 Auf der rechten Seite soll dem Benutzer der aktuelle Standort angezeigt werden.
 
 Wird das aktuelle Tempolimit überschritten, so soll sich die linke Seite der App rot färben, um den Benutzer auf die Überschreitung hinzuweisen.
 
-![Warningscreen](../images/warningscreen.png) {: style="height:400px;width:600px; border: 1px solid black;"}
+![Warningscreen](../assets/images/warningscreen.png){: style="width:60%; border: 1px solid black;"}
 
 ## Labels
 
@@ -47,10 +46,10 @@ export interface Label {
 ```
 
 **value**  
-Schild mit Tempolimit:
+Schild mit Tempolimit:  
 In `value` wird das Tempolimit zum erkannten Schild gespeichert.
 
-Schild mit Auflösung eines Tempolimits:
+Schild mit Auflösung eines Tempolimits:  
 In `value` wird der Wert `-1` gespeichert.
 
 **name**  
@@ -177,3 +176,32 @@ const speed = useMemo(
   [location?.coords.speed]
 );
 ```
+
+**Anzeige des Bildes**
+
+Um das passende Bild in der App anzuzeigen wir lediglich dem Image-Component von Ract Native der passende Pfad übergeben.
+
+Dieser wird mit Hilfe der erkannten Klasse, welche in `sign` gespeichert ist aus dem Record geholt.
+
+```html
+<Image
+  ...
+  source={labels[sign].image}
+></Image>
+```
+
+**Anzeige des Tempolimits**
+
+Um das passende Tempolimit anzuzeigen, wird die Funktion `renderLimit` aufgerufen.
+
+- **speedLimit = `MAX_SAFE_INTEGER - 1`**  
+`MAX_SAFE_INTEGER - 1` ist der Wert mit welchem `speedLimit` initialisiert wird.  
+In diesem Fall wird beim Tempolimit ein "-" angezeigt, da noch kein Schild erkannt wurde.
+
+![nodetect](../assets/images/nodetect.png){: style="width:20%; border: 1px solid black;"}
+
+- **speedLimit = `MAX_SAFE_INTEGER`**  
+Ist das speedLimit `MAX_SAFE_INTEGER` so befindet sich der Benutzer auf einer Autobahn und die Geschwindigkeit ist unbegrenzt.  
+Angezeigt wird ein Auflösunhs-Schild.
+
+![nodetect](../assets/images/unbegrenzt.png){: style="width:20%; border: 1px solid black;"}
