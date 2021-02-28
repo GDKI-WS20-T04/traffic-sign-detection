@@ -22,7 +22,6 @@ nav:
       - "app/tensorflowLite.md"
   - Server:
       - "server/server.md"
-      - "app/verwendung.md"
   - Quellen:
       - "sources.md"
 
