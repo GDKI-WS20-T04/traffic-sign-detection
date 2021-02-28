@@ -2,6 +2,19 @@
 
 ## Datensatz erstellen
 
+Um einen Datensatz zu erstellen, haben wir erst einmal definiert, welche Schilder wir benötigen und diese in eine Tabelle mit den zugehörigen Labelnamen geschrieben.  
+Das Dokument finden Sie [hier]()
+
+Danach haben wir nach Datensätzen im Internet recherchiert. Dort sind wir auf einen Datensatz der University of Copenhagen gestoßen, welcher 2158 Bilder von deutschen Verkehrschilder beinhaltet.  
+Den Datensatz finden sie [hier](https://sid.erda.dk/public/archives/ff17dc924eba88d5d01a807357d6614c/published-archive.html).
+
+Ebenfalls haben wir einen eigenen Datensatz erstellt, in dem wir mit dem Auto gefahren sind und mit dem Smartphone aus der Windschutzscheibe heraus hefilmt haben.  
+Diese Videos haben wir dann nach Schildern durchsucht und diese als Screenshots herausgenommen.
+
+Im Anschluss haben wir beide Datensätze zusammengeführt und nach den Labelnamen, welche wir in der oben genannten Tabelle definiert hatten, sortiert.
+
+Zum Schluss mussten die Bilder dann lediglich gelabelt werden.
+
 ## Recherche
 
 Bevor wir begonnen haben ein Netz zu trainieren, haben wir uns zuerst umgesehen welche Netze andere Github Projekte
