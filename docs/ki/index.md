@@ -3,7 +3,7 @@
 ## Datensatz erstellen
 
 Um einen Datensatz zu erstellen, haben wir erst einmal definiert, welche Schilder wir benötigen und diese in eine Tabelle mit den zugehörigen Labelnamen geschrieben.  
-Das Dokument finden Sie [hier]()
+Das Dokument finden Sie [hier](https://github.com/GDKI-WS20-T04/traffic-sign-detection/blob/master/traffic-signs-data/SchilderTabelle.pdf)
 
 Danach haben wir nach Datensätzen im Internet recherchiert. Dort sind wir auf einen Datensatz der University of Copenhagen gestoßen, welcher 2158 Bilder von deutschen Verkehrschilder beinhaltet.  
 Den Datensatz finden sie [hier](https://sid.erda.dk/public/archives/ff17dc924eba88d5d01a807357d6614c/published-archive.html).
