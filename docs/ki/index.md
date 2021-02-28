@@ -51,10 +51,10 @@ Beim Ablauf dieser Schritte haben wir uns anhand dieser Dokumentation orientiert
 Ebenso werden bei den meisten Schritten Python Programme zur Hilfe gezogen, diese sind in der oben angegebenen
 Dokumentation enthalten und wurden dann für unsere Zwecke ggf. angepasst.
 
-Im ersten Schritt muss unser Datensatz in einen Trainings und Test-Ordner unterteilt werden. Dies könnte
+Im ersten Schritt muss unser Datensatz in einen Trainings- und Test-Ordner unterteilt werden. Dies könnte
 selbstverständlich auch von Hand erledigt werden, ist jedoch mit einem Programm deutlich einfacher. Dazu kann das
-`partition_dataset.py` mit den Startparametern `-x -i <OrdnerPfadZuBilder> -r 0.1`. Nach dem Ausführen dieses Skripts
-wurde dann ein Test sowie Train Ordner erstellt.
+`partition_dataset.py` mit den Startparametern `-x -i <OrdnerPfadZuBilder> -r 0.1` verwendet werden. Nach dem Ausführen
+dieses Skripts wurde dann ein Test sowie Train Ordner erstellt.
 
 Bevor jetzt weiter gemacht werden kann, muss zuerst die Label-Datei erstellt werden. In der `label.pbtxt` File werden
 alle Labels definiert die das Netz später erkennen soll. Ein Eintrag könnte so aussehen:
@@ -72,39 +72,42 @@ Danach können dann die Tensorflow Record Dateien erstellt werden, dazu wird das
 Startparameter `-x <OrdnerPfadZuBilder> -l <PfadZuLabels> -o < PfadFürDieErstellteFile>\(test/train).record` ausgeführt
 werden. Dieses Skript muss dann einmal für den Test sowie den Train Ordner ausgeführt werden.
 
-Nachdem nun die Tensorflow Record Dateien erstellt wurden, kann im Tensorflow Modell Zoo ein Modell heruntergeladen
+Nachdem nun die Tensorflow Record Dateien erstellt wurden, muss im Tensorflow Modell Zoo ein Modell heruntergeladen
 werden.
 [TensorFlow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md)
 Sobald die Wahl des Modells getroffen wurde und ein Modell heruntergeladen wurde muss dies noch entpackt, sowie in den
 Projektordner verschoben werden, da wir es im nachfolgendem Schritt benötigen.
 
 Im nächsten Schritt kommen wir nun zum eigentlichen Training des Modells. Dazu erstellen wir uns einen neuen Ordner und
-kopieren die `pipeline.config` File aus dem Modell, welches zuvor heruntergeladen wurde und kopieren diese in den zuvor
-erstellten Ordner. Bevor wir das Training starten können, müssen noch Änderungen an der config Datei vorgenommen werden:
+kopieren die `pipeline.config` File aus dem Modell, welches zuvor heruntergeladen wurde und fügen diese in den zuvor
+erstellten Ordner ein. Bevor wir das Training starten können, müssen noch Änderungen an der config Datei vorgenommen
+werden:
 
 fine_tune_checkpoint: `<Hier muss der Pfad zu dem heurngeladenem Modell eingetragen werden>`  
 label_map_path: `<Der Pfad zu der Label Datei>`  
-tf_record_input_reader { input_path: `<Pfad zur Train oder Test Tensorflow Record Datei>` } fine_tune_checkpoint_type:
-detection // Hier muss classification zu detection geändert werden
+tf_record_input_reader { input_path: `<Pfad zur Train oder Test Tensorflow Record Datei>` }  
+fine_tune_checkpoint_type: detection `Hier muss classification zu detection geändert werden`
 
 Des Weiteren muss je nach Leistung der GPU noch die `batch_size` angepasst werden. Die RTX 2070 schafft beim MobileNet
 V2 640x640 nur eine Batch Size von 4. Außerdem kann mit `num_steps` noch angegeben werden, wie viele Schritte das Netz
 trainiert werden soll, je höher diese Zahl ist, desto besser wird das Netz (meistens, kann bei zu vielen auch wieder
 schlechter werden) es wird aber auch länger dauern bis das Netz berechnet wurde. Neben diesen Änderungen können auch
-noch andere individuelle Anpassungen an der config Datei vorgenommen werden.
+noch andere individuelle Anpassungen an der config Datei vorgenommen werden. Wir hatten zum Beispiel
+die `max_detections_per_class` auf 2 eingestellt sowie die `max_total_detections` auf 6. Da in den allermeisten Bildern
+nicht mehr wie 6 Geschwindigkeitsschilder vorkommen sollten.
 
-Nachdem nun die config Datei fertig angepasst wurde, kann das Training gestartet werden, dazu kann das
-`model_main_tf2.py` Skript genutzt werden. Dies muss mit den folgendenden Startparametern aufgerufen werden:
---model_dir=`<Pfad zu meinem Modell>` --pipeline_config_path=`<Pfad zur eben erstellten config Datei>`
+Nachdem nun die config Datei fertig angepasst wurde, kann das Training gestartet werden, dazu wird das
+`model_main_tf2.py` Skript genutzt. Dies muss mit den folgenden Startparametern aufgerufen werden:
+`--model_dir= <Pfad zu meinem Modell> --pipeline_config_path= <Pfad zur eben erstellten config Datei>`
 
 Je nach gewähltem Modell und der Anzahl der Batches dauert es jetzt ggf. mehrere Stunden bis das Programm beendet wurde
 und das Netz erstellt wurde. Da im Laufe des Programms Checkpoints gespeichert werden, kann das Programm gestoppt, und
-zu einem späterem Zeitpunkt erneut gestartet werden. Mithilfe der Checkpoints beginnt das Programm bei der letzten
-Speicherung, dadurch ist es nicht nötig wieder von vorne zu beginnen.
+zu einem späterem Zeitpunkt erneut gestartet werden. Mithilfe der Checkpoints beginnt das Programm dann bei einem
+Neustart bei der letzten Speicherung, dadurch ist es nicht nötig wieder von vorne zu beginnen.
 
-Des Weiteren kann während des Trainings der Traingsvortschritt Live verfolgt
-werden: `tensorboard --logdir=<Pfad zum Modell>`
-Im Tensorbord befinden sich eine Vielzahl an Grafiken, die den Trainigsvortschritt darlegen.
+Des Weiteren kann während des Trainings der Trainingsfortschritt live verfolgt werden mithilfe des
+Tensor-Boards: `tensorboard --logdir=<Pfad zum Modell>`
+Im Tensor-Board befinden sich eine Vielzahl an Grafiken, die den Trainingsfortschritt darlegen.
 
 Nachdem das Model dann fertig ist, kann es exportiert werden, dazu kann das `exporter_main_v2` Skript genutzt werden.
 Auch dies wird wieder mit Startparametern ausgeführt:
@@ -116,25 +119,29 @@ Auch dies wird wieder mit Startparametern ausgeführt:
 --output_directory <Ort an dem das Modell gespeichert wurde>
 ```
 
-Nach dem Exportieren befindet sich in dem Output directory ein Modell Graph sowie ein Checkpoint. Beides kann im
+Nach dem Exportieren befindet sich in dem Output Directory ein Modell Graph sowie ein Checkpoint. Beides kann im
 nächsten Schritt verwendet werden, um das Modell zu evaluieren.
 
-Nach dem Training muss jedes erstellte Netz selbstverständlich evaluiert und mit anderen Verglichen werden. Dazu testen
-wir das Netz mit neuen Bildern, die bisher noch nicht genutzt wurden. Für das evaluieren haben wir uns sehr viel Zeit
-genommen und verschiedenen Programme geschrieben die:
+Nach dem Training muss jedes erstellte Netz selbstverständlich evaluiert und mit anderen Modellen verglichen werden.
+Dazu testen wir das Netz mit neuen Bildern, die bisher noch nicht genutzt wurden. Für das Evaluieren haben wir uns sehr
+viel Zeit genommen und verschiedenen Programme geschrieben die:
 
 - einzelne Bilder evaluieren
 - ein Video evaluieren
-- einen Score berechnen.
+- Bilder evaluieren und Scores berechnen.
 
-Bilder können mit dem Programm `plot_object_detection_model` getestet werden. Das Programm speichert die eingebenen
-Bildern mit Labeld der erkannten Objekte. Im Programm gibt es Pfade zu dem Modell, Testbildern sowie zu den Labels die
-ggf. angepasst werden müssen. Videos können mit dem Programm `plot_object_detection_model_video` analysiert werden,
-dieses Programm analysiert jeden Frame des Videos, labelt diesem mit den Wahrscheinlichkeiten das ein Schild erkannt
-wurde und baut zum Schluss wieder ein Video zusammen. Neben diesen ebaulierungsmöglichkeiten, haben wir zusätzlich auch
-noch ein Programm geschrieben, dass eine Reihe von Testbildern analysiert und einen Score berechnet wie gut das Modell
-funktioniert hat. Diese Programme sind `model_comparison.py` und `model_comparison_2.py`. Der Unterschiede der beiden
-ist lediglich, dass im einen der erstellte Graph geladen wird und im anderem der Checkpoint.
+Bilder können mit dem Programm `plot_object_detection_model` getestet werden. Das Programm speichert die eingegebenen
+Bildern mit Labels der erkannten Objekte. Im Programm gibt es Pfade zu dem Modell, Testbildern sowie zu den Labels die
+ggf. angepasst werden müssen.
+
+Videos können mit dem Programm `plot_object_detection_model_video` analysiert werden, dieses Programm analysiert jeden
+Frame des Videos, labelt diesem mit den Wahrscheinlichkeiten das ein Schild erkannt wurde und baut zum Schluss wieder
+ein Video zusammen.
+
+Neben diesen Evaluierungsmöglichkeiten, haben wir zusätzlich auch noch ein Programm geschrieben, dass eine Reihe von
+Testbildern analysiert und einen Score berechnet wie gut das Modell funktioniert hat. Diese Programme
+sind `model_comparison.py` und `model_comparison_2.py`. Der Unterschiede der beiden ist lediglich, dass im einen der
+erstellte Graph geladen wird und im anderem der Checkpoint.
 
 ### Technischer Ablauf
 
@@ -150,7 +157,8 @@ weiter trainiert werden kann.
 ![](../assets/images/Model1_1.png)
 ![](../assets/images/Model1_2.png)
 
-Das Compare Skript kam bereits auf folgende Werte:  
+Das Compare Skript kam bereits auf folgende Werte:
+
 12 / 25 Bilder erkannt
 
 7,19 Punkte
@@ -162,12 +170,12 @@ Hier 2 Beispiel Bilder:
 ![](../assets/images/Model1_3.jpg)
 ![](../assets/images/Model1_4.jpg)
 
-Das Zone 30 Ende Schild wurde zwar falsch erkannt aber auch nut mit einer sehr geringen Wahrscheinlichkeit. Das
+Das Zone 30 Ende Schild wurde zwar falsch erkannt, aber auch nur mit einer sehr geringen Wahrscheinlichkeit. Das
 Dreißiger Schild wurde ebenfalls zwar erkannt aber auch noch relativ unsicher.
 
 Nachdem das erste SSD MobileNet V2 FPNLite 640x640 mit 20.000 Schritten schon gut funktioniert hatte und wir am
 Trainingsverlauf gesehen hatten das noch potenzial besteht, haben wir das Model erneut durchlaufen lassen. Dieses Mal
-dann aber mit 50.000 Steps. Auch hier wieder der Trainingsverlauf im Tensor Bord:
+dann aber mit 50.000 Steps. Auch hier wieder der Trainingsverlauf im Tensor-Board:
 
 ![](../assets/images/Model2_1.png)
 ![](../assets/images/Model2_2.png)
@@ -186,14 +194,15 @@ Auch hier wieder die zwei Beispiel Bilder:
 ![](../assets/images/Model2_4.jpg)
 
 Wie man erkennt werden die beiden Bilder schon deutlich sicherer und jetzt auch richtig erkannt als zuvor. Jedoch
-besteht hier noch Verbesserungspotenzial.
+besteht hier noch Verbesserungspotenzial. An der Lernrate haben wir jedoch festgestellt das noch mehr Steps zu nichts
+mehr geführt hätten.
 
 Als Nächstes haben wir dann ein Faster R-CNN ResNet101 V1 640x640 versucht. Hier sind wir aber leider auf das Problem
-gestoßen das die RTX 2070 nicht genug Video-RAM besitzt um das Training durchzuführen.
+gestoßen, dass die RTX 2070 nicht genug Video-RAM besitzt, um das Training durchzuführen.
 
 ![](../assets/images/Model3_1.png)
 
-Als alternative hätten wir das Netz auch auf Google Colab berechnen lassen können, wir haben uns dann aber dafür
+Als alternative hätten wir das Netz auch auf Google Colab berechnen lassen können. Wir haben uns dann aber dafür
 entschieden ein Faster R-CNN ResNet50 V1 640x640 zu nutzen. Dieses funktioniert auch mit nur 8 GB Video-RAM. Dieses Netz
 hat jedoch nicht wirklich funktioniert, was mitunter auch daran liegen könnte, dass wir doch einen sehr kleinen
 Datensatz mit nur 1000 Bilder hatten. Die Lernrate klingt zwar plausibel, ist aber längst nicht so hoch wie beim SSD
@@ -231,8 +240,8 @@ Auch das Compare Skript hat dieses Netz noch einmal bessert bewertet:
 
 17,77 Sekunden
 
-Da wir bisher nur Modelle mit einer Auflösung von 640x640 genutzt hatten, wollten wir auch noch einmal ein Netz mit
-einer geringeren Pixelanzahl testen. Dabei haben wir uns für ein SSD MobileNet v2 320x320 entschieden. Wir waren uns
+Da wir bisher nur Modelle mit einer Auflösung von 640x640 trainiert hatten, wollten wir auch noch einmal ein Netz mit
+einer geringeren Pixelanzahl trainieren. Dabei haben wir uns für ein SSD MobileNet v2 320x320 entschieden. Wir waren uns
 aber bereits vor dem Training unsicher, ob das Netz überhaupt funktionieren kann, da bei diesen wenigen Pixeln nicht
 viel zu erkennen ist. Dies hat sich dann auch im Trainingsverlauf dargelegt.
 
@@ -246,8 +255,8 @@ Auch das Compare Skript hat ergeben das, dass Netz nicht wirklich funktioniert:
 
 16,35 Sekunden
 
-In der App haben wir dann, dass beste SSD MobileNet V2 FPNLite 640x640 genutzt.
+Das Compare Skript hatte unsere Vermutung bestätigt, dass mit dieser geringen Pixelanzahl keine Objekterkennung
+funktioniert. Hier hätte man ggf. 2 Netze nutzen müssen. Eines welches ein Schild erkennt und ein anderes, welches dann
+das Schild klassifiziert. Da wir dazu aber den gesamten Datensatz umbauen müssten haben wir in der App dann, dass beste
+SSD MobileNet V2 FPNLite 640x640 genutzt.
 
-## Evaluierung
-
-Testskript erläutern
