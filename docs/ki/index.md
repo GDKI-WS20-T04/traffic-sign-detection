@@ -248,7 +248,7 @@ viel zu erkennen ist. Dies hat sich dann auch im Trainingsverlauf dargelegt.
 ![](../assets/images/Model6_1.png)
 ![](../assets/images/Model6_2.png)
 
-Auch das Compare Skript hat ergeben das, dass Netz nicht wirklich funktioniert:
+Auch das Compare Skript hat ergeben, dass das Netz nicht wirklich funktioniert:
 0 / 25 Bilder
 
 0 Punkte
