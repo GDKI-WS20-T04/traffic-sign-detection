@@ -29,12 +29,12 @@ verwenden (siehe [Vorhersage](#vorhersage)).
 Um TensorflowJs in React Native zu Verwenden müssen einige Packages installiert werden. Eine Anleitung der benötigten
 schritte befindet sich [hier](https://www.npmjs.com/package/@tensorflow/tfjs-react-native#expo-compatibility).
 
-!!! tip 
+!!! tip
     Zwar steht in der Dokumentation von TensorflowJs für React Native das einige Funktionen wie zum
     Beispiel [bundleResourceIO](https://js.tensorflow.org/api_react_native/latest/#bundleResourceIO) nicht
     mit [Expo](https://expo.io/) funktionieren, diese konnten wir allerdings ohne Probleme Verwenden.
 
-!!! warning 
+!!! warning
     Damit [Schritt 3](https://www.npmjs.com/package/@tensorflow/tfjs-react-native#step-3-configure-metro) der
     Anleitung funktioniert kann es sein das man noch das
     Package [`@expo/metro-config`](https://www.npmjs.com/package/@expo/metro-config) installiert werden muss.
@@ -70,15 +70,15 @@ export const Camera = () => {
 Wenn Tensorflow initalisiert wurde kann das Vorher exportierte Modell geladen werden. Hierfür werden die Tensorflow funktionen `loadGraphModel` und `bundleResourceIO` verwendet.
 
 ```ts
-  // model.json
-  const jsonModel = require("../../assets/v5-detector_3/model.json");
-  // weights
-  const weights = [
-    require("../../assets/v5-detector_3/group1-shard1of2.bin"),
-    require("../../assets/v5-detector_3/group1-shard2of2.bin"),
-  ];
+// model.json
+const jsonModel = require("../../assets/v5-detector_3/model.json");
+// weights
+const weights = [
+  require("../../assets/v5-detector_3/group1-shard1of2.bin"),
+  require("../../assets/v5-detector_3/group1-shard2of2.bin"),
+];
 
-  const model = await tf.loadGraphModel(bundleResourceIO(jsonModel, weights));
+const model = await tf.loadGraphModel(bundleResourceIO(jsonModel, weights));
 ```
 
 !!! tip
@@ -104,10 +104,10 @@ export const predict = async (
 };
 ```
 
-Das Resultat welches man von der `executeAsync` function bekommt kann je nach Modell variieren, bei uns war es ein Array von Tensoren die verschidene Informationen 
+Das Resultat welches man von der `executeAsync` function bekommt kann je nach Modell variieren, bei uns war es ein Array von Tensoren die verschidene Informationen
 enthalten. Für die unsetzung dieser App wurden allerdings nur Zwei benötigt: Die Klassifizirung und die `Scores` hierfür.
 
-```js
+```ts
 import { getLabels, PredictionResult } from "./label";
 import * as tf from "@tensorflow/tfjs";
 
@@ -127,15 +127,21 @@ export const predict = async (
 Um aus einem Tensor die Daten zu bekommen kann man die Function `dataSync()` verwendet, welche ein Array mit den Werten des Tensors zurückgibt.
 
 !!! tip
-    Da auch die Postion der Tensoren im Array von Model zu Model unterschiedlich sind[^3], haben wir mithilfe des Folgenden Codeblocks, die längen der Arrays 
+    Da auch die Postion der Tensoren im Array von Model zu Model unterschiedlich sind[^3], haben wir mithilfe des Folgenden Codeblocks, die längen der Arrays
     ausgegeben und dadurch die Benötigten gefenden (Da unser Modell 6 Klassifikationen Pro Bild macht enthalten die Arrays der länge 6 die "wichtige" Information).
 
     ```ts
       res.forEach(r => console.log(r.dataSync().length))
     ```
 
-## Bilder/Video
+## Video
 
-## Fazit
+Die Klassification von Bildern aus einem Kammera Stream ist ganz einfach möglich, da Tensorflow Js hierfür ein Vorgefertigtes Komponent mitliefert. Ein Beispiel hierfür befindet sich [hier](https://js.tensorflow.org/api_react_native/latest/#cameraWithTensors). Dort kann man dann in der `handleCameraStream` funktion die in [Vorhersage](#vorhersage) beschriebenen Schritte mit dem `nextImageTensor` ausführen.
+
+!!! tip
+    Bei dem Style des Kammera Componenten (`cameraWithTensors`) müssen `width` und `height` gesetzt sein, da dieses sonst nicht angezeigt wird.
+
+## Probleme
 
 [^1]: Quelle: https://blog.tensorflow.org/2020/02/tensorflowjs-for-react-native-is-here.html
+[^2]: Tensorflow JS bietet auch noch weitere möglichkeiten eine "Vorhersage" durchzuführen
