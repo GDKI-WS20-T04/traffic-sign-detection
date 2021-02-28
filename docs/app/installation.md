@@ -19,4 +19,4 @@ Hat man die App installiert ist die Verwendung der App ganz einfach, hierführ m
 ![](../assets/images/app/qr-code.png){: style="height:150px;width:150px"}
 
 !!! tip
-    Damit die App korrekt Funktioniert muss auch der Server gestartet sein (// TODO link zur App installation)
+    Damit die App korrekt Funktioniert muss auch der Server gestartet sein (Die Anleitung hierfür befindet sich [hier](./client.md))
