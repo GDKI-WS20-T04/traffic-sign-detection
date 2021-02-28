@@ -22,6 +22,9 @@ Um die App jetzt bei der Autofahrt zu verwenden, wird die verwendung einer Handy
 
 ![smartphone_bracket](../assets/images/app/smartphone_bracket.png){: style="width:60%; border: 1px solid black;"}
 
+!!! note
+    Beispiel Videos von der Verwendung können auch [hier](https://jannikcloud.dnshome.de/owncloud/index.php/s/kVLr4FrCosjk80z) heruntergeladen werden.
+
 ## Debug mode
 
 Um eine Geschwindikeits änderung zu Simulieren kann auch der Debug-Modus aktiviert werden, dies geht mit einem Langen Klick auf das Kamera Symbol oben rechts. Nun können über
