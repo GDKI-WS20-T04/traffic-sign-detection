@@ -1,7 +1,7 @@
 # Tensorflow Lite
 
 Um die Klassification der Schilder noch weiter zu Beschleunigen haben wir uns auch noch [Tensorflow lite](https://www.tensorflow.org/lite) angeschaut.
-Da dies allerdings keine Officelle unterstützung bietet und alle Verfügaren Packages veraltet sind[^2]. Desweiteren funktionieren diese Packages auch nicht mit Expo, was 
+Da dies allerdings keine Officelle unterstützung bietet und alle Verfügaren Packages veraltet sind[^1]. Desweiteren funktionieren diese Packages auch nicht mit Expo, was 
 dazu führt das man das Projekt `ejecten` muss. Daher muss man einige Sachen installiern und Anpassen was wiederrun zu verschidenesten Problemen führt. Sommit haben wir in 
 der Zeit nicht geschaft `Tflite` mit React Native zu verwenden.
 
