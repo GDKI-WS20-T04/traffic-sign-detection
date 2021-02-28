@@ -13,7 +13,11 @@ nav:
   - Ki:
       - "ki/index.md"
   - App:
+      - "app/index.md"
       - "app/installation.md"
+      - "app/tensorflowJs.md"
+  - Quellen:
+      - "sources.md"
 
 markdown_extensions:
   - pymdownx.tabbed
@@ -21,6 +25,7 @@ markdown_extensions:
   - attr_list
   - admonition
   - pymdownx.details
+  - footnotes
 
 dev_addr: "127.0.0.1:8001"
 
