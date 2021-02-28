@@ -15,12 +15,13 @@ nav:
   - App:
       - "app/index.md"
       - "app/installation.md"
+      - "app/verwendung.md"
       - "app/konzept.md"
       - "app/tensorflowJs.md"
       - "app/client.md"
+      - "app/tensorflowLite.md"
   - Server:
       - "server/server.md"
-      - "app/verwendung.md"
   - Quellen:
       - "sources.md"
 

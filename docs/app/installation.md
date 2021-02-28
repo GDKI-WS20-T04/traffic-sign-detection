@@ -5,7 +5,7 @@
 Um die App im Development mode zu starten sind folgende schritte notwendig:
 
 1. Git Repo clonen: `git clone git@github.com:GDKI-WS20-T04/traffic-sign-detection.git`
-2. In den App ordner wechseln: `cd App`
+2. In den App ordner wechseln: `cd app`
 3. Dependencies installieren: `npm i`
 4. Dev Server Starten: `npm run start`
 5. QR-Code in der Web Oberfläche mit der [Expo Go App](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=de&gl=de) Scannen.
