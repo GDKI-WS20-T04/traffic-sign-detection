@@ -1,22 +1,22 @@
 # Tensorflow JS
 
 Um die trainierte KI in React Native zu verwenden, war unsere erste Idee [Tensorflow Js](https://www.tensorflow.org/js)
-zu verwenden. Da diese seit dem 04.02.2020[^1] eine Offiziell Unterstützung für **React Native** bietet.
+zu verwenden. Da diese seit dem 04.02.2020[^1] eine Offiziell-Unterstützung für **React Native** bietet.
 
 ## Konvertierung
 
-Um ein Tensorflow modell in Tensorflow Js zu verwenden, muss dieses erst in ein Format konvertiert werden, welches
+Um ein Tensorflow-Modell in Tensorflow Js zu verwenden, muss dieses erst in ein Format konvertiert werden, welches
 Tensorflow Js verwenden kann. Hierfür bietet Tensorflow
 einen [Converter](https://www.tensorflow.org/js/guide/conversion) an.
 
 ![TensorflowJS Konvertierung](../assets/images/app/convert_tensorflow_js.png){: style="height:350px;width:600px"}
 
-Die konvertierung eines Modells funktioniert sehr einfach, die konvertierung kann mit dem
+Die Konvertierung eines Modells funktioniert sehr einfach, die Konvertierung kann mit dem
 Konsolenbefehl `tensorflowjs_wizard` gestartet werden. Im folgenden Dialog kommen eine Vielzahl von Einstellungen die
 vorgenommen werden müssen:
 ![](../assets/images/konv.png){: style="width:100%"}
 
-Die Einstellungen wie oben angegeben wurden für alle unsere Tensorflow-JS Models verwendet. Es gibt zudem bereits hier
+Die Einstellungen, wie oben angegeben, wurden für alle unsere Tensorflow-JS Models verwendet. Es gibt zudem bereits hier
 Komprimierungsmöglichkeiten. Den größten Performance Boost hatten wir mit der float16 quantization festgestellt.
 ![](../assets/images/small.png){: style="width:100%"}
 
@@ -25,12 +25,12 @@ werden (siehe [Vorhersage](#vorhersage)).
 
 ## Installation
 
-Um TensorflowJs in React Native zu Verwenden, müssen einige Packages installiert werden. Eine Anleitung der benötigten
+Um TensorflowJs in React Native zu verwenden, müssen einige Packages installiert werden. Eine Anleitung der benötigten
 Schritte befindet sich [hier](https://www.npmjs.com/package/@tensorflow/tfjs-react-native#expo-compatibility).
 
 !!! tip In der Dokumentation von TensorflowJs für React Native steht zwar, dass einige Funktionen wie zum
 Beispiel [bundleResourceIO](https://js.tensorflow.org/api_react_native/latest/#bundleResourceIO) nicht
-mit [Expo](https://expo.io/) funktionieren, diese konnten wir allerdings ohne Probleme Verwenden.
+mit [Expo](https://expo.io/) funktionieren, diese konnten wir allerdings ohne Probleme verwenden.
 
 !!! warning Damit [Schritt 3](https://www.npmjs.com/package/@tensorflow/tfjs-react-native#step-3-configure-metro) der
 Anleitung funktioniert kann es sein, dass noch das
@@ -38,7 +38,7 @@ Package [`@expo/metro-config`](https://www.npmjs.com/package/@expo/metro-config)
 
 ## Vorhersage
 
-Um Tensorflow Js in React Native verwenden zu können muss dieses erst initialisiert werden. Dies sollte beim Anzeigen
+Um Tensorflow Js in React Native verwenden zu können, muss dieses erst initialisiert werden. Dies sollte beim Anzeigen
 einer Komponente passieren, welche Tensorflow Js verwendet.
 
 ```ts
@@ -79,9 +79,9 @@ const weights = [
 const model = await tf.loadGraphModel(bundleResourceIO(jsonModel, weights));
 ```
 
-!!! tip um das Model später zu verwenden, sollte dieses in einem State gespeichert werden.
+!!! tip um das Model später zu verwenden, sollte dieses in einem `state` gespeichert werden.
 
-Nach dem Erfolgreichen laden des Modells kann dieses nun Verwendet werden. Hierfür stellt Tensorflow die
+Nach dem Erfolgreichen laden des Modells kann dieses nun verwendet werden. Hierfür stellt Tensorflow die
 Funktion `executeAsync`[^2] bereit.
 
 ```ts
@@ -102,8 +102,8 @@ export const predict = async (
 };
 ```
 
-Das Resultat, welches man von der `executeAsync` function bekommt, kann je nach Modell variieren, bei uns war es ein
-Array von Tensoren die verschiedene Informationen enthalten. Für die Umsetzung dieser App wurden allerdings nur Zwei
+Das Resultat, welches man von der `executeAsync` Funktion bekommt, kann je nach Modell variieren, bei uns war es ein
+Array von Tensoren die verschiedene Informationen enthalten. Für die Umsetzung dieser App wurden allerdings nur zwei
 Teile des Arrays benötigt:
 `class` und `Scores`.
 
@@ -124,10 +124,10 @@ export const predict = async (
 };
 ```
 
-Um aus einem Tensor die Daten zu bekommen, kann man die Function `dataSync()` verwendet, welche ein Array mit den Werten
+Um aus einem Tensor die Daten zu bekommen, kann man die FunKtion `dataSync()` verwendet, welche ein Array mit den Werten
 des Tensors zurückgibt.
 
-!!! tip Da auch die Postion der Tensoren im Array von Model zu Model unterschiedlich sind[^3], haben wir mithilfe des
+!!! tip Da auch die Position der Tensoren im Array von Model zu Model unterschiedlich sind[^3], haben wir mithilfe des
 Folgenden Codeblocks, die längen der Arrays ausgegeben und dadurch die benötigten Teile des Arrays gefunden (Da unser
 Modell 6 Klassifikationen Pro Bild macht enthalten die Arrays der länge 6 die "wichtigen" Information).
 
@@ -137,7 +137,7 @@ Modell 6 Klassifikationen Pro Bild macht enthalten die Arrays der länge 6 die "
 
 ## Video
 
-Die Klassifikation von Bildern aus einem Kamera Stream ist ganz einfach möglich, da Tensorflow Js hierfür ein
+Die Klassifikation von Bildern aus einem Kamera-Stream ist ganz einfach möglich, da Tensorflow Js hierfür ein
 vorgefertigtes Komponent mitliefert. Ein Beispiel hierfür befindet
 sich [hier](https://js.tensorflow.org/api_react_native/latest/#cameraWithTensors). Dort kann man dann in
 der `handleCameraStream` funktion die in [Vorhersage](#vorhersage) beschriebenen Schritte mit dem `nextImageTensor`
