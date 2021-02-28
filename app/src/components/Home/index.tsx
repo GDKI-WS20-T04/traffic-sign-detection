@@ -4,6 +4,7 @@ import { View, StyleSheet } from "react-native";
 import { Button, Text } from "react-native-paper";
 import * as Permissions from "expo-permissions";
 import * as ScreenOrientation from "expo-screen-orientation";
+import { RequestPermission } from "./RequestPermission";
 
 export interface HomeProps {
   navigation: NavigationType;
@@ -26,26 +27,23 @@ export const Home: React.FC<HomeProps> = ({ navigation }) => {
     }
   );
 
-  if (!permission || permission.status !== "granted") {
-    return (
-      <View>
-        <Text>Permission is not granted</Text>
-        <Button onPress={askForPermission}>Grant permission</Button>
-      </View>
-    );
-  }
   return (
-    <View style={style.container}>
-      <View style={style.buttons}>
-        <Button
-          style={style.button}
-          mode="outlined"
-          onPress={() => navigation.navigate("Start")}
-        >
-          Start
-        </Button>
+    <RequestPermission
+      permission={permission}
+      askForPermission={askForPermission}
+    >
+      <View style={style.container}>
+        <View style={style.buttons}>
+          <Button
+            style={style.button}
+            mode="outlined"
+            onPress={() => navigation.navigate("Start")}
+          >
+            Start
+          </Button>
+        </View>
       </View>
-    </View>
+    </RequestPermission>
   );
 };
 
