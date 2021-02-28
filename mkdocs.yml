@@ -12,6 +12,8 @@ nav:
       - "index.md"
   - Ki:
       - "ki/index.md"
+  - App:
+      - "app/konzept.md"
 
 markdown_extensions:
   - pymdownx.tabbed
