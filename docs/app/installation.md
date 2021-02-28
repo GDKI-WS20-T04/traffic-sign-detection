@@ -24,5 +24,6 @@ ob sich ein valider Link in der Zwischenablage befindet) oder der unten stehende
 
 ![](../assets/images/app/qr-code.png){: style="height:150px;width:150px"}
 
-!!! tip Damit die App korrekt funktioniert, muss auch der Server gestartet sein (Die Anleitung hierfür befindet
-sich [hier](./client.md))
+!!! tip 
+      Damit die App korrekt funktioniert, muss auch der Server gestartet sein (Die Anleitung hierfür befindet
+      sich [hier](./client.md))

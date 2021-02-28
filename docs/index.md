@@ -33,9 +33,10 @@ Dazu wurde eine KI implementiert, sowie eine Native Android-App.
 - **Expo**  
   Als Plattform und Framework für die App-Entwicklung
 
-!!! info Expo vereinfacht die Konfiguration des Projektes, indem es dem Entwickler die Einrichtung, sowie Installation
-der apks abnimmt. Über die *Expo Go* App, kann man so direkt auf seine Lokal gestartete App über das Netzwerk zugreifen.
-Alle Änderungen werden beim Speichern direkt in der App geladen.
+!!!info     
+    Expo vereinfacht die Konfiguration des Projektes, indem es dem Entwickler die Einrichtung, sowie Installation der 
+    apks abnimmt. Über die *Expo Go* App, kann man so direkt auf seine Lokal gestartete App über das Netzwerk zugreifen.
+    Alle Änderungen werden beim Speichern direkt in der App geladen.
 
 ## Fazit
 

@@ -13,8 +13,9 @@ Erkennt die App jetzt ein Bild wird dieses in der Mitte angezeigt, des Weiteren 
 Geschwindigkeit. Als weitere Informationen befindet sich unten links die aktuelle Geschwindigkeit und rechts
 Informationen über den aktuellen Standort.
 
-!!! bug Da die aktuelle Geschwindigkeit über GPS bestimmt wird kann es sein das diese bei geringer Geschwindigkeit oder
-in Gebäuden nicht immer akkurat ist.
+!!! bug 
+        Da die aktuelle Geschwindigkeit über GPS bestimmt wird kann es sein das diese bei geringer Geschwindigkeit oder
+        in Gebäuden nicht immer akkurat ist.
 
 Falls die aktuelle Geschwindigkeit die erlaubte Geschwindigkeit (mit einer Toleranz von 5 Km/h) überschreitet, wird dies
 Audiovisuell angezeigt.
@@ -26,8 +27,9 @@ Smartphone so ausrichten das dieses einen Möglichst guten Überblick über die 
 
 ![smartphone_bracket](../assets/images/app/smartphone_bracket.png){: style="width:60%; border: 1px solid black;"}
 
-!!! note Beispiel Videos von der Verwendung können
-auch [hier](https://jannikcloud.dnshome.de/owncloud/index.php/s/kVLr4FrCosjk80z) heruntergeladen werden.
+!!! note 
+        Beispiel Videos von der Verwendung können
+        auch [hier](https://jannikcloud.dnshome.de/owncloud/index.php/s/kVLr4FrCosjk80z) heruntergeladen werden.
 
 ## Development mode
 

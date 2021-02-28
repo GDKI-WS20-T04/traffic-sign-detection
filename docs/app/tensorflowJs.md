@@ -28,13 +28,15 @@ werden (siehe [Vorhersage](#vorhersage)).
 Um TensorflowJs in React Native zu verwenden, müssen einige Packages installiert werden. Eine Anleitung der benötigten
 Schritte befindet sich [hier](https://www.npmjs.com/package/@tensorflow/tfjs-react-native#expo-compatibility).
 
-!!! tip In der Dokumentation von TensorflowJs für React Native steht zwar, dass einige Funktionen wie zum
-Beispiel [bundleResourceIO](https://js.tensorflow.org/api_react_native/latest/#bundleResourceIO) nicht
-mit [Expo](https://expo.io/) funktionieren, diese konnten wir allerdings ohne Probleme verwenden.
+!!! tip 
+        In der Dokumentation von TensorflowJs für React Native steht zwar, dass einige Funktionen wie zum
+        Beispiel [bundleResourceIO](https://js.tensorflow.org/api_react_native/latest/#bundleResourceIO) nicht
+        mit [Expo](https://expo.io/) funktionieren, diese konnten wir allerdings ohne Probleme verwenden.
 
-!!! warning Damit [Schritt 3](https://www.npmjs.com/package/@tensorflow/tfjs-react-native#step-3-configure-metro) der
-Anleitung funktioniert kann es sein, dass noch das
-Package [`@expo/metro-config`](https://www.npmjs.com/package/@expo/metro-config) installiert werden muss.
+!!! warning 
+        Damit [Schritt 3](https://www.npmjs.com/package/@tensorflow/tfjs-react-native#step-3-configure-metro) der
+        Anleitung funktioniert kann es sein, dass noch das
+        Package [`@expo/metro-config`](https://www.npmjs.com/package/@expo/metro-config) installiert werden muss.
 
 ## Vorhersage
 
@@ -60,9 +62,10 @@ export const Camera = () => {
 //...
 ```
 
-!!! warning Hierbei ist es wichtig das erst das Tensorflow Object (`tf`) verwendet wird, nachdem `tf.ready();`
-erfolgreich ausgeführt wurde. Hierfür wurde der State `isTfReady`
-gesetzt, um die Komponenten erst nach dem Initialisieren anzuzeigen.
+!!! warning 
+        Hierbei ist es wichtig das erst das Tensorflow Object (`tf`) verwendet wird, nachdem `tf.ready();`
+        erfolgreich ausgeführt wurde. Hierfür wurde der State `isTfReady`
+        gesetzt, um die Komponenten erst nach dem Initialisieren anzuzeigen.
 
 Nachdem Tensorflow initalisiert wurde, kann das Vorher exportierte Modell geladen werden. Hierfür werden die Tensorflow
 funktionen `loadGraphModel` und `bundleResourceIO` verwendet.
@@ -79,7 +82,8 @@ const weights = [
 const model = await tf.loadGraphModel(bundleResourceIO(jsonModel, weights));
 ```
 
-!!! tip um das Model später zu verwenden, sollte dieses in einem `state` gespeichert werden.
+!!! tip 
+        um das Model später zu verwenden, sollte dieses in einem `state` gespeichert werden.
 
 Nach dem Erfolgreichen laden des Modells kann dieses nun verwendet werden. Hierfür stellt Tensorflow die
 Funktion `executeAsync`[^2] bereit.
@@ -127,9 +131,10 @@ export const predict = async (
 Um aus einem Tensor die Daten zu bekommen, kann man die FunKtion `dataSync()` verwendet, welche ein Array mit den Werten
 des Tensors zurückgibt.
 
-!!! tip Da auch die Position der Tensoren im Array von Model zu Model unterschiedlich sind[^3], haben wir mithilfe des
-Folgenden Codeblocks, die längen der Arrays ausgegeben und dadurch die benötigten Teile des Arrays gefunden (Da unser
-Modell 6 Klassifikationen Pro Bild macht enthalten die Arrays der länge 6 die "wichtigen" Information).
+!!! tip 
+        Da auch die Position der Tensoren im Array von Model zu Model unterschiedlich sind[^3], haben wir mithilfe des
+        Folgenden Codeblocks, die längen der Arrays ausgegeben und dadurch die benötigten Teile des Arrays gefunden (Da unser
+        Modell 6 Klassifikationen Pro Bild macht enthalten die Arrays der länge 6 die "wichtigen" Information).
 
     ```ts
       res.forEach(r => console.log(r.dataSync().length))
@@ -143,8 +148,9 @@ sich [hier](https://js.tensorflow.org/api_react_native/latest/#cameraWithTensors
 der `handleCameraStream` funktion die in [Vorhersage](#vorhersage) beschriebenen Schritte mit dem `nextImageTensor`
 ausführen.
 
-!!! tip Bei dem Stylen der Kamera Komponenten (`cameraWithTensors`) müssen `width` und `height` gesetzt sein, da dieses
-sonst nicht angezeigt wird.
+!!! tip 
+        Bei dem Stylen der Kamera Komponenten (`cameraWithTensors`) müssen `width` und `height` gesetzt sein, da dieses
+        sonst nicht angezeigt wird.
 
 ## Probleme
 
