@@ -18,3 +18,4 @@ Zusätzlich werden noch folgende Packages benötigt:
 - [flask](https://pypi.org/project/Flask/)
 - [pillow](https://pypi.org/project/Pillow/)
 - [numpy](https://pypi.org/project/numpy/)
+- [object_detection](https://pypi.org/project/object-detection/)
