@@ -1,0 +1,4 @@
+flask
+pillow
+numpy
+object_detection
