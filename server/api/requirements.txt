@@ -2,4 +2,3 @@ flask
 pillow
 numpy
 tensorflow
-object_detection
