@@ -5,7 +5,7 @@ export function postImage(image: string): Promise<ImageResult> {
   const formData = new FormData();
   formData.append("base64_image", image);
   return fetchTimeOut(
-    `http://localhost/image`,
+    `http://localhost:5025/image`,
     {
       method: "POST",
       body: formData,

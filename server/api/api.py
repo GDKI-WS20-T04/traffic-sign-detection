@@ -2,6 +2,7 @@ import io
 import time
 import flask
 import logging
+import os
 
 import numpy as np
 from PIL import Image
@@ -18,9 +19,9 @@ for gpu in gpus:
 logger = logging.getLogger()
 
 api = Blueprint('api', __name__)
-PATH_TO_MODEL_DIR = 'E:/gdki-ws-20-21-projekt/ki/sign-identification/exported-models/version_4_50kbetterMobile'
+PATH_TO_MODEL_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__), '../..', 'ki/sign-identification/exported-models/version_4_50kbetterMobile'))
 PATH_TO_CKPT = PATH_TO_MODEL_DIR + "/saved_model"
-PATH_TO_LABELS = 'E:/gdki-ws-20-21-projekt/ki/sign-identification/annotations/label_map.pbtxt'
+PATH_TO_LABELS = os.path.normpath(os.path.join(os.path.dirname(__file__), '../..', 'ki/sign-identification/annotations/label_map.pbtxt'))
 
 detect_fn = tf.saved_model.load(PATH_TO_CKPT)
 
