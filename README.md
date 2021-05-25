@@ -6,9 +6,9 @@ durchgeführt.
 
 ## Team Mitglieder
 
-- Timon Pellekoorne
-- Max Stephan
-- Jannik Lapp
+- [Timon Pellekoorne](https://github.com/TimonPllkrn)
+- [Max Stephan](https://github.com/mxsph)
+- [Jannik Lapp](https://github.com/JannikLapp)
 
 ## Ziel
 
@@ -55,7 +55,7 @@ Hat man die App installiert ist die Verwendung der App ganz einfach, hierfür mu
 link `exp://exp.host/@timonpllkrn/app` kopiert werden und die ExpoApp geöffnet werden (Die App überprüft selbstständig,
 ob sich ein valider Link in der Zwischenablage befindet) oder der unten stehenden QR-Code gescannt werden.
 
-<img src="docs/assets/images/app/qr-code.png" alt="drawing" style="width:200px;"/>
+<img src="docs/assets/images/app/qr-code.png" alt="qr-code" width="200" />
 
 > Damit die App korrekt funktioniert, muss auch der Server gestartet sein (Die Anleitung hierfür befindet
 > sich [hier](docs/server/server.md#server-starten))
